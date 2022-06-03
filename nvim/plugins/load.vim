@@ -21,5 +21,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'simrat39/rust-tools.nvim'
+Plug 'github/copilot.vim'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()

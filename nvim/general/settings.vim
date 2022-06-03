@@ -3,7 +3,7 @@ filetype off
 filetype plugin indent on
 
 " set leader key
-let g:mapleader = "\<Space>"
+let mapleader = "\<Space>"
 
 syntax enable                           " Enables syntax highlighing
 set termguicolors                       " Enable colors in the terminal
@@ -47,3 +47,5 @@ au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm al
 
 " You can't stop me
 cmap w!! w !sudo tee %
+
+colorscheme nord

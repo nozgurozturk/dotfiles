@@ -42,3 +42,20 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <Leader>o o<Esc>^Da
 nnoremap <Leader>O O<Esc>^Da
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nnoremap <C-t> :enew<cr>
+
+" Move to the next buffer
+nnoremap <Leader>l :bnext<CR>
+
+" Move to the previous buffer
+nnoremap <Leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nnoremap <Leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nnoremap <Leader>bl :ls<CR>

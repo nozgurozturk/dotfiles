@@ -1,6 +1,8 @@
 local nvim_lsp = require'lspconfig'
+local util = require "lspconfig/util"
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local on_attach = function(client)
     require'completion'.on_attach(client)
@@ -18,17 +20,19 @@ nvim_lsp.bashls.setup{
 -- Go Language Server Protocol
 -- ============================================================================
 
-nvim_lsp.gopls.setup{
-    cmd = {"gopls", "serve"},
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
+nvim_lsp.gopls.setup {
+  cmd = {"gopls", "serve"},
+  filetypes = {"go", "gomod"},
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
       },
+      staticcheck = true,
     },
-    capabilities = capabilities,
+  },
+  capabilities = capabilities,
 }
 
 -- ============================================================================

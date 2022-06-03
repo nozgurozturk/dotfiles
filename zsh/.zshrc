@@ -105,3 +105,9 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias gotodev="cd $HOME/Development" 
 
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source <(kubectl completion zsh)
+
+export GOPATH="$HOME/go/bin"
+
+export PATH="$PATH:$GOPATH"
+export PATH="/usr/local/opt/curl/bin:$PATH"

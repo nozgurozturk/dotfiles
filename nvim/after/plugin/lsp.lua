@@ -8,19 +8,9 @@ lsp.ensure_installed({
     'tsserver',
     'rust_analyzer',
     'gopls',
+    'graphql',
+    'terraformls',
 })
-
--- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -57,6 +47,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+lsp.set_sign_icons()
 lsp.setup()
 
 vim.diagnostic.config({

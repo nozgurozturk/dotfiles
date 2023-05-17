@@ -1,10 +1,10 @@
-function SetColor(color)
-	color = color or "github_dark"
-	vim.cmd.colorscheme(color)
+function SetColor()
+    require 'github-theme'.setup({
+        theme_style = "dark",
+    })
 
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 SetColor()

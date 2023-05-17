@@ -14,7 +14,7 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-env:
+#env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
@@ -192,6 +192,47 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
+# Copyright (c) 2017-present Arctic Ice Studio <development@arcticicestudio.com>
+# Copyright (c) 2017-present Sven Greb <code@svengreb.de>
+
+# Project:    Nord Alacritty
+# Version:    0.1.0
+# Repository: https://github.com/arcticicestudio/nord-alacritty
+# License:    MIT
+# References:
+#   https://github.com/alacritty/alacritty
+# github Alacritty Colors
+colors:
+  # Default colors
+  primary:
+    background: '0x24292e'
+    foreground: '0xd1d5da'
+
+  # Normal colors
+  normal:
+    black:   '0x586069'
+    red:     '0xea4a5a'
+    green:   '0x34d058'
+    yellow:  '0xffea7f'
+    blue:    '0x2188ff'
+    magenta: '0xb392f0'
+    cyan:    '0x39c5cf'
+    white:   '0xd1d5da'
+
+  # Bright colors
+  bright:
+    black:   '0x959da5'
+    red:     '0xf97583'
+    green:   '0x85e89d'
+    yellow:  '0xffea7f'
+    blue:    '0x79b8ff'
+    magenta: '0xb392f0'
+    cyan:    '0x56d4dd'
+    white:   '0xfafbfc'
+
+  indexed_colors:
+    - { index: 16, color: '0xd18616' }
+    - { index: 17, color: '0xf97583' }
 #colors:
   # Default colors
   #primary:
@@ -434,7 +475,7 @@ font:
   #thickness: 0.15
 
 # Live config reload (changes require restart)
-#live_config_reload: true
+live_config_reload: true
 
 # Shell
 #

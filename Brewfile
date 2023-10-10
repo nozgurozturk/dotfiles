@@ -33,6 +33,3 @@ brew "minikube"
 brew "helm"
 cask "font-jetbrains-mono"
 cask "rectangle"
-brew "spotifyd"
-brew "spotify-tui"
-

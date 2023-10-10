@@ -6,8 +6,6 @@
 [credential "https://githubv.com"]
 	helper =
 	helper = !/usr/local/bin/gh auth git-credential
-[url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
 [gitlab]
  	user = nozgurozturk
 [credential "https://gitlab.com"]
@@ -50,9 +48,7 @@
 	st = status -sb
 	br = branch
     co = checkout
-    cob = checkout -b
 	lo = log --graph --decorate --pretty=oneline --abbrev-commit
-	loa = log --graph --decorate --pretty=oneline --abbrev-commit --all
     brlist = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 [filter "media"]
 	clean = git-media-clean %f

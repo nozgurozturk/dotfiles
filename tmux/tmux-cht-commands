@@ -29,6 +29,7 @@ git-worktree
 git-status
 git-commit
 git-rebase
+aws
 docker
 docker-compose
 stow

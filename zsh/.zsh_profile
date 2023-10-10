@@ -1,0 +1,25 @@
+VIM="nvim"
+
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+export FZF_CTRL_T_COMMAND=$VIM
+
+export GOPATH=$HOME/go
+
+# pnpm
+export PNPM_HOME="/Users/ozgurozturk/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/scripts:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
+alias cddev="cd ~/Development"
+
+alias kctl="kubectl"
+
+bindkey -s ^p "tmuxs\n"
+bindkey -s ^f "tmuxw\n"

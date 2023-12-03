@@ -4,6 +4,7 @@ require("noo.set")
 
 local augroup = vim.api.nvim_create_augroup
 local NooGroup = augroup('Noo', {})
+local WorkingDirectory = augroup('WorkingDirectory', { clear = true })
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -23,10 +24,8 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({"BufWritePre"}, {
+autocmd({ "BufWritePre" }, {
     group = NooGroup,
     pattern = "*",
     command = "%s/\\s\\+$//e",
 })
-
-

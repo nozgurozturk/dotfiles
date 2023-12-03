@@ -45,11 +45,16 @@
 	changed = yellow bold
 	untracked = red bold
 [alias]
+    sw = switch
+    swc = switch -c
 	st = status -sb
 	br = branch
     co = checkout
 	lo = log --graph --decorate --pretty=oneline --abbrev-commit
     brlist = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+    unstage = reset HEAD --
+	prev = checkout -
+	discard = checkout --
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f

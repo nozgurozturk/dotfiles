@@ -17,16 +17,19 @@ generate_ssh:
 	@echo "Your passphrase is added to apple keychain! In case you want to keep the password, here it is\n${password}"
 
 install_dependencies:
-	echo "Installing dependencies..."
+	@echo "Installing dependencies..."
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+setup_terminal:
+	@echo "Setting up terminal..."
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-	git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	rm -rf ~/.tmux/plugins/tpm &&  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	rm -rf  ~/.local/share/nvim/site/pack/packer/start/packer.nvim && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	rm -rf ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	rm -rf ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 setup_macos:
-	echo "Setting up MacOS defaults..."
+	@echo "Setting up MacOS defaults..."
 	mkdir -p ~/Pictures/Screenshots
 
 	defaults write com.apple.screencapture type jpg
@@ -38,7 +41,7 @@ setup_macos:
 	chflags nohidden ~/Library
 
 link_config_files:
-	echo "Linking config files..."
+	@echo "Linking config files..."
 	[ -f ~/.gitconfig ] || ln -s $(PWD)/git/.gitconfig ~/.gitconfig
 	[ -f ~/.git-commit-template ] || ln -s $(PWD)/git/.git-commit-template ~/.git-commit-template
 
@@ -69,5 +72,3 @@ clean:
 	rm -f ~/.tmux.conf
 	rm -rf ~/.local/scripts
 
-install: clean install_dependencies setup_macos link_config_files give_access generate_ssh
-	echo "Done!"

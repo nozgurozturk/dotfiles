@@ -1,5 +1,8 @@
 VIM="nvim"
 
+# NVIM alias
+alias nvi="$VIM"
+
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
@@ -8,7 +11,7 @@ export FZF_CTRL_T_COMMAND=$VIM
 export GOPATH=$HOME/go
 
 # pnpm
-export PNPM_HOME="/Users/ozgurozturk/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
@@ -20,6 +23,10 @@ export PATH="$HOME/go/bin:$PATH"
 alias cddev="cd ~/Development"
 
 alias kctl="kubectl"
+alias kctx="kubectx"
+alias awsume=". awsume"
+alias python="/usr/bin/python3"
 
 bindkey -s ^p "tmuxs\n"
 bindkey -s ^f "tmuxw\n"
+bindkey -s ^h "cht\n"

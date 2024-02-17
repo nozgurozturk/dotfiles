@@ -1,31 +1,20 @@
-require("noo.remap")
-require("noo.packer")
-require("noo.set")
-
-local augroup = vim.api.nvim_create_augroup
-local NooGroup = augroup('Noo', {})
-local WorkingDirectory = augroup('WorkingDirectory', { clear = true })
-
-local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
+require("noo.config.options")
+require("noo.config.keymaps")
+require("noo.config.autocmds")
+require("noo.config.lazy")
 
 function R(name)
     require("plenary.reload").reload_module(name)
 end
 
-autocmd('TextYankPost', {
-    group = yank_group,
-    pattern = '*',
-    callback = function()
-        vim.highlight.on_yank({
-            higroup = 'IncSearch',
-            timeout = 40,
-        })
-    end,
+vim.filetype.add({
+    extension = {
+        templ = 'templ',
+    }
 })
 
-autocmd({ "BufWritePre" }, {
-    group = NooGroup,
-    pattern = "*",
-    command = "%s/\\s\\+$//e",
-})
+vim.g.netrw_browse_split = 0
+vim.g.netrw_keepdir = 0
+vim.g.netrw_winsize = 30
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3

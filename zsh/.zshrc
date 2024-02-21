@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_TMUX_AUTOSTART=true
@@ -81,14 +84,14 @@ source <(kubectl completion zsh)
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -107,3 +110,38 @@ source <(kubectl completion zsh)
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# TERMINAL
+export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+
+# JAVASCRIPT
+export PATH="$HOME/.deno/bin:$PATH"
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# GO
+export GOPATH=$HOME/go
+export GOPRIVATE=github.com/vanmoof/*
+export PATH="$HOME/go/bin:$PATH"
+
+# FZF
+export FZF_CTRL_T_COMMAND=$EDITOR
+
+# CUSTOM ALIASES
+alias nvi=$EDITOR
+
+alias cddev="cd ~/Development"
+
+alias kctl="kubectl"
+alias kctx="kubectx"
+alias awsume=". awsume"
+alias python="/usr/bin/python3"
+
+# CUSTOM FUNCTIONS BINDINGS
+export PATH="$HOME/.local/scripts:$PATH"
+
+bindkey -s ^p "tmuxs\n"
+bindkey -s ^f "tmuxw\n"
+bindkey -s ^h "cht\n"

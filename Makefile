@@ -46,9 +46,9 @@ link_config_files:
 	[ -f ~/.git-commit-template ] || ln -s $(PWD)/git/.git-commit-template ~/.git-commit-template
 
 	[ -d ~/.config/nvim ] || ln -s $(PWD)/nvim ~/.config/nvim
+	[ -d ~/.config/wezterm ] || ln -s $(PWD)/wezterm ~/.config/wezterm
 
 	[ -f ~/.zshrc ] || ln -s $(PWD)/zsh/.zshrc ~/.zshrc
-	[ -f ~/.zsh_profile ] || ln -s $(PWD)/zsh/.zsh_profile ~/.zsh_profile
 
 	mkdir -p ~/.tmux/
 	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmux/tmux.conf ~/.tmux.conf
@@ -64,8 +64,8 @@ give_access:
 clean:
 	echo "Cleaning up..."
 	rm -f ~/.zshrc
-	rm -f ~/.zsh_profile
 	rm -rf ~/.config/nvim
+	rm -rf ~/.config/wezterm
 	rm -f ~/.gitconfig
 	rm -f ~/.git-commit-template
 	rm -rf ~/.tmux

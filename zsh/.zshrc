@@ -74,12 +74,11 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux terraform kubectl zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git gh tmux terraform kubectl zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-source ~/.zsh_profile
 source <(kubectl completion zsh)
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -125,6 +124,9 @@ export PATH="$PNPM_HOME:$PATH"
 export GOPATH=$HOME/go
 export GOPRIVATE=github.com/vanmoof/*
 export PATH="$HOME/go/bin:$PATH"
+
+# TERRAFORM
+RPROMPT='$(tf_prompt_info)'
 
 # FZF
 export FZF_CTRL_T_COMMAND=$EDITOR

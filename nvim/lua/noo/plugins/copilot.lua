@@ -1,8 +1,8 @@
 return {
-    "github/copilot.vim",
+    'github/copilot.vim',
     config = function()
         vim.g.copilot_filetypes = {
-            ["*"] = "true",
+            ['*'] = 'true',
         }
     end,
 }

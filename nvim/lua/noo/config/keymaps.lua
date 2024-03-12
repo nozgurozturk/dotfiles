@@ -1,36 +1,36 @@
-vim.g.mapleader = " "
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Rex) -- open explorer
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move line down
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv") -- move line up
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set("n", "J", "mzJ`z") -- join line
-vim.keymap.set("n", "<C-d>", "<C-d>zz") -- scroll down
-vim.keymap.set("n", "<C-u>", "<C-u>zz") -- scroll up
-vim.keymap.set("n", "n", "nzzzv") -- keep cursor centered
-vim.keymap.set("n", "N", "Nzzzv") -- keep cursor centered
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- is not what someone will guess without a bit more experience.
+--
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- File navigation
+vim.keymap.set('n', '<leader>e', vim.cmd.Rex, { desc = 'Open [E]xplorer' })
 
-vim.keymap.set("x", "<leader>p", [["_dP]]) -- paste without overwriting the default register
-
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]]) -- copy to system clipboard
-vim.keymap.set("n", "<leader>Y", [["+Y]])          -- copy to system clipboard
-
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]]) -- cut without overwriting the default register
-
-vim.keymap.set("n", "Q", "<nop>") -- disable Ex mode
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmuxs<CR>") -- open tmux session
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format) -- format code
-
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz") 
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- search and replace word under cursor
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })              -- make exewcutable
-
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end)
+-- File editing
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { desc = 'Move selected line down' })
+vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { desc = 'Move selected line up' })
+vim.keymap.set({ 'v', 'n' }, '<C-J>', 'mzJ`z',
+  { desc = '[J]oin selected lines in visual mode or [J]oin current line with the next in normal mode' })
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = 'Paste without overwriting the default register' })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'Copy to system clipboard' })
+vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'Copy to system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = 'Cut without overwriting the default register' })
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = 'Search and replace word under cursor' })

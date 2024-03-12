@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
-	    { import = "noo.plugins" },
+        { import = "noo.plugins" },
     },
     checker = { enabled = true, notify = false },
     change_detection = { notify = false }

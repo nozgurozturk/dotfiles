@@ -5,7 +5,24 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- Set the color scheme
-config.color_scheme = 'Catppuccin Mocha'
+function scheme_for_appearance(appearance)
+  if appearance:find("Dark") then
+    return 'Catppuccin Mocha'
+  else
+    return 'Catppuccin Latte'
+  end
+end
+
+wezterm.on("window-config-reloaded", function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  local appearance = window:get_appearance()
+  local scheme = scheme_for_appearance(appearance)
+  if overrides.color_scheme ~= scheme then
+    overrides.color_scheme = scheme
+    window:set_config_overrides(overrides)
+  end
+end)
+-- config.color_scheme = 'Catppuccin Mocha'
 
 -- Set the font
 -- config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'

@@ -7,7 +7,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_TMUX_AUTOSTART=true
-
+#
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -122,7 +122,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # GO
 export GOPATH=$HOME/go
-export GOPRIVATE=github.com/vanmoof/*
+export GOPRIVATE=github.com/VanMoof/*
 export PATH="$HOME/go/bin:$PATH"
 
 # TERRAFORM

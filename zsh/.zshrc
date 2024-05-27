@@ -139,7 +139,7 @@ alias cddev="cd ~/Development"
 alias kctl="kubectl"
 alias kctx="kubectx"
 alias awsume=". awsume"
-alias python="/usr/bin/python3"
+alias python="$WHICH python3"
 
 # CUSTOM FUNCTIONS BINDINGS
 export PATH="$HOME/.local/scripts:$PATH"

@@ -3,9 +3,9 @@
 	email = ozgur@nozgurozturk.com
 [github]
 	user = nozgurozturk
-[credential "https://githubv.com"]
+[credential "https://github.com"]
 	helper =
-	helper = !/usr/local/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [gitlab]
  	user = nozgurozturk
 [credential "https://gitlab.com"]

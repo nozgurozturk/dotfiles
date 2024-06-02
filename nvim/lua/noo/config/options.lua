@@ -45,7 +45,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true
-vim.opt.wrap = false
+vim.opt.linebreak = true
 
 -- Decrease update time
 vim.opt.updatetime = 250

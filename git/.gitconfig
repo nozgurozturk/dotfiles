@@ -3,8 +3,10 @@
 	email = ozgur@nozgurozturk.com
 [github]
 	user = nozgurozturk
+[url "git@github.com:"]
+ insteadOf = https://github.com/
 [credential "https://github.com"]
-	helper =
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [gitlab]
  	user = nozgurozturk
@@ -58,3 +60,6 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

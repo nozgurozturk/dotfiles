@@ -146,5 +146,6 @@ export PATH="$HOME/.local/scripts:$PATH"
 
 bindkey -s ^p "tmuxs\n"
 bindkey -s ^f "tmuxw\n"
+bindkey -s ^k "tmuxp\n"
 bindkey -s ^h "cht\n"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

@@ -43,7 +43,6 @@ vim.opt.colorcolumn = "120"
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true
 vim.opt.linebreak = true
 
@@ -78,4 +77,8 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 -- Set terminal colors to 256 to match neovim
--- vim.opt.termguicolors = true
+vim.opt.termguicolors = true
+
+-- Spell checker
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true

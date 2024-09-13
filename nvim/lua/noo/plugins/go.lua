@@ -17,6 +17,9 @@ return {
 			end,
 			group = format_sync_grp,
 		})
+
+		vim.keymap.set("n", "<leader>Gfs", "<CMD>GoFillStruct<CR>", { desc = "[G]o [f]ill [s]truct" })
+		vim.keymap.set("n", "<leader>Gat", "<CMD>GoAddTag<CR>", { desc = "[G]o [a]dd [t]ag" })
 	end,
 	event = { "CmdlineEnter" },
 	ft = { "go", "gomod" },

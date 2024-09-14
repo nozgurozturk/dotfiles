@@ -100,19 +100,42 @@ return { -- LSP Configuration & Plugins
 				--
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.server_capabilities.documentHighlightProvider then
+				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
+						group = highlight_augroup,
 						callback = vim.lsp.buf.document_highlight,
 					})
 
 					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 						buffer = event.buf,
+						group = highlight_augroup,
 						callback = vim.lsp.buf.clear_references,
 					})
+
+					vim.api.nvim_create_autocmd("LspDetach", {
+						group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+						callback = function(event2)
+							vim.lsp.buf.clear_references()
+							vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+						end,
+					})
+				end
+
+				-- The following code creates a keymap to toggle inlay hints in your
+				-- code, if the language server you are using supports them
+				--
+				-- This may be unwanted, since they displace some of your code
+				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+					map("<leader>th", function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+					end, "[T]oggle Inlay [H]ints")
 				end
 			end,
 		})
+
+		vim.lsp.set_log_level("off")
 
 		-- LSP servers and clients are able to communicate to each other what features they support.
 		--  By default, Neovim doesn't support everything that is in the LSP Specification.
@@ -143,45 +166,9 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
-			graphql = {},
+			helm_ls = {},
 			html = {},
-			helm_ls = {
-				settings = {
-					logLevel = "info",
-					valuesFiles = {
-						mainValuesFile = "values.yaml",
-						lintOverlayValuesFile = "values.lint.yaml",
-						additionalValuesFilesGlobPattern = "values*.yaml"
-					},
-					yamlls = {
-						enabled = true,
-						enabledForFilesGlob = "![helmfile]*.{yaml,yml}",
-						diagnosticsLimit = 50,
-						showDiagnosticsDirectly = false,
-						path = "yaml-language-server",
-						config = {
-							schemas = {
-								kubernetes = "templates/**",
-							},
-							completion = true,
-							hover = true,
-							-- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
-						}
-					}
-				},
-			},
 			marksman = {}, -- markdown
-			-- pyright = {},
-			-- rust_analyzer = {},
-			taplo = {}, -- toml
-			terraformls = {},
-			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-			--
-			-- Some languages (like typescript) have entire language plugins that can be useful:
-			--    https://github.com/pmizio/typescript-tools.nvim
-			--
-			-- But for many setups, the LSP (`tsserver`) will work just fine
-			tsserver = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes { ...},
@@ -208,6 +195,15 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
+			-- pyright = {},
+			-- rust_analyzer = {},
+			taplo = {}, -- toml
+			terraformls = {},
+			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+			--
+			-- Some languages (like typescript) have entire language plugins that can be useful:
+			--    https://github.com/pmizio/typescript-tools.nvim
+			--
 			yamlls = {},
 		}
 
@@ -226,6 +222,7 @@ return { -- LSP Configuration & Plugins
 			"stylua",  -- Used to format lua code
 			"golangci_lint_ls", -- Used to lint Go code
 			"spectral", -- Used to lint OpenAPI files
+			"sql-formatter", -- Used to format sql files
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

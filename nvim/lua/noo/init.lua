@@ -13,12 +13,6 @@ vim.filetype.add({
 	},
 })
 
--- vim.g.netrw_banner = 0       -- disable banner
--- vim.g.netrw_browse_split = 0 -- open in same window
--- vim.g.netrw_keepdir = 0
--- vim.g.netrw_winsize = 30
--- vim.g.netrw_liststyle = 3
-
 -- Get the system appearance and set background color
 local system_appearance = vim.fn.system("defaults read -g AppleInterfaceStyle")
 if system_appearance == "Dark\n" then

@@ -145,7 +145,31 @@ return { -- LSP Configuration & Plugins
 			},
 			graphql = {},
 			html = {},
-			helm_ls = {},
+			helm_ls = {
+				settings = {
+					logLevel = "info",
+					valuesFiles = {
+						mainValuesFile = "values.yaml",
+						lintOverlayValuesFile = "values.lint.yaml",
+						additionalValuesFilesGlobPattern = "values*.yaml"
+					},
+					yamlls = {
+						enabled = true,
+						enabledForFilesGlob = "![helmfile]*.{yaml,yml}",
+						diagnosticsLimit = 50,
+						showDiagnosticsDirectly = false,
+						path = "yaml-language-server",
+						config = {
+							schemas = {
+								kubernetes = "templates/**",
+							},
+							completion = true,
+							hover = true,
+							-- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
+						}
+					}
+				},
+			},
 			marksman = {}, -- markdown
 			-- pyright = {},
 			-- rust_analyzer = {},
@@ -199,7 +223,7 @@ return { -- LSP Configuration & Plugins
 		-- for you, so that they are available from within Neovim.
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format lua code
+			"stylua",  -- Used to format lua code
 			"golangci_lint_ls", -- Used to lint Go code
 			"spectral", -- Used to lint OpenAPI files
 		})

@@ -195,8 +195,31 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
-			-- pyright = {},
-			-- rust_analyzer = {},
+			ruff_lsp = {
+				settings = {
+					init_options = {
+						settings = {
+							-- Any extra CLI arguments for `ruff` go here.
+							args = {},
+						}
+					}
+				}
+			},
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						disableOrganizeImports = true,
+						analysis = {
+							ignore = { "*" },
+							useLibraryCodeForTypes = true,
+							typeCheckingMode = "standard",
+							diagnosticMode = "openFilesOnly",
+							autoImportCompletions = true,
+						}
+					},
+				},
+			},
+			rust_analyzer = {},
 			taplo = {}, -- toml
 			terraformls = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs

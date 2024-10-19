@@ -104,6 +104,8 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export HOMEBREW_NO_ANALYTICS=1
+
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -139,7 +141,6 @@ alias cddev="cd ~/Development"
 alias kctl="kubectl"
 alias kctx="kubectx"
 alias awsume=". awsume"
-alias python="$WHICH python3"
 
 # CUSTOM FUNCTIONS BINDINGS
 export PATH="$HOME/.local/scripts:$PATH"
@@ -148,4 +149,3 @@ bindkey -s ^p "tmuxs\n"
 bindkey -s ^f "tmuxw\n"
 bindkey -s ^k "tmuxp\n"
 bindkey -s ^h "cht\n"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# MacOS System Appearance
+APPEARANCE=$1
+
+if [ -z "$APPEARANCE" ]; then
+	APPEARANCE="light"
+fi
+
+# alacritty
+function alacritty_dark() {
+        ln -svf ~/.config/alacritty/themes/catpuccin-macchiato.toml ~/.config/alacritty/themes/_active.toml
+        touch ~/.config/alacritty/alacritty.toml
+}
+
+function alacritty_light() {
+        ln -svf ~/.config/alacritty/themes/catppuccin-latte.toml ~/.config/alacritty/themes/_active.toml
+        touch ~/.config/alacritty/alacritty.toml
+}
+
+if [ "$APPEARANCE" = "dark" ]; then
+	alacritty_dark
+elif [ "$APPEARANCE" = "light" ]; then
+	alacritty_light
+fi

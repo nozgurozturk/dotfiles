@@ -24,7 +24,7 @@
   "mini.surround": { "branch": "main", "commit": "0e67c4bc147f2a15cee94e7c94dcc0e115b9f55e" },
   "nui.nvim": { "branch": "main", "commit": "b58e2bfda5cea347c9d58b7f11cf3012c7b3953f" },
   "nvim": { "branch": "main", "commit": "ea02cc8c3c053c6c1c574e0791d743338e3e788f" },
-  "nvim-cmp": { "branch": "main", "commit": "2c93d5e7e2eb20c4faf88ddf3d421684e8549b35" },
+  "nvim-cmp": { "branch": "main", "commit": "88661b7cbff086a43b3a3d173b09d0f753d7391d" },
   "nvim-lspconfig": { "branch": "master", "commit": "84f867753f659bfd9319f75bd5eb273a315f2da5" },
   "nvim-treesitter": { "branch": "master", "commit": "df20c049694474021cffb2cc8687c809adc1cbba" },
   "oil.nvim": { "branch": "master", "commit": "39dbf875861449cf09e936fa80073f3413e9439c" },

@@ -8,26 +8,34 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: setup
-setup: setup-brew setup-macos-preferences install link
+setup: install link setup-macos-preferences
 
 .PHONY: destroy
 destroy: uninstall unlink
 
 .PHONY: install
-install: install-dependencies install-tmux-plugin-manager install-zsh-plugins
+install: install-brew install-dependencies install-tmux-plugin-manager install-zsh-plugins
 
 .PHONY: uninstall
-uninstall: uninstall-dependencies uninstall-tmux-plugin-manager uninstall-zsh-plugings
+uninstall: uninstall-zsh-plugins uninstall-tmux-plugin-manager uninstall-dependencies uninstall-brew
 
-.PHONY: setup-brew
-setup-brew:
+.PHONY: install-brew
+install-brew:
 	$(call print-target)
 	# Install and setup brew
-	[ -d /opt/homebrew ] || NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	[ -d /opt/homebrew ] || /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	# Enable Homebrew shellenv
-	/opt/homebrew/bin/brew shellenv
+	eval "$$(/opt/homebrew/bin/brew shellenv)" 
 	# Disable telemetry
 	brew analytics off
+
+.PHONY: uninstall-brew
+uninstall-brew:
+	$(call print-target)
+	# Uninstall homebrew
+	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+	# Remove homebrew packages
+	rm -rf /opt/homebrew
 
 .PHONY: setup-macos-preferences
 setup-macos-preferences:
@@ -94,6 +102,33 @@ setup-macos-preferences:
 	# delay until repeat: short
 	defaults write -g InitialKeyRepeat -int 15
 
+	# Key Modifiers
+	# ^ : Ctrl
+	# $ : Shift
+	# ~ : Option (Alt)
+	# @ : Command (Apple)
+	# # : Numeric Keypad
+	#
+	# Non-Printable Key Codes
+	#
+	# Standard
+	# Up Arrow:     \UF700        Backspace:    \U0008        F1:           \UF704
+	# Down Arrow:   \UF701        Tab:          \U0009        F2:           \UF705
+	# Left Arrow:   \UF702        Escape:       \U001B        F3:           \UF706
+	# Right Arrow:  \UF703        Enter:        \U000A        ...
+	# Insert:       \UF727        Page Up:      \UF72C
+	# Delete:       \UF728        Page Down:    \UF72D
+	# Home:         \UF729        Print Screen: \UF72E
+	# End:          \UF72B        Scroll Lock:  \UF72F
+	# Break:        \UF732        Pause:        \UF730
+	# SysReq:       \UF731        Menu:         \UF735
+	# Help:         \UF746
+	#
+	# OS X
+	# delete:       \U007F	
+	#
+	defaults write -g NSUserKeyEquivalents -dict-add "'Window->Move & Resize->Top'" "^~\UF700"
+
 	# Restart dock and finder to apply changes
 	killall Dock && killall Finder && killall SystemUIServer
 
@@ -108,15 +143,16 @@ uninstall-dependencies:
 	$(call print-target)
 	brew remove --force --ignore-dependencies $$(brew list --formula)
 	brew remove --cask --force --ignore-dependencies $$(brew list)
-	# Uninstall homebrew
-	NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-	# Remove homebrew packages
-	rm -rf /opt/homebrew
 
 .PHONY: install-tmux-plugin-manager
 install-tmux-plugin-manager:
 	$(call print-target)
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+.PHONY: uninstall-tmux-plugin-manager
+uninstall-tmux-plugin-manager:
+	$(call print-target)
+	rm -rf ~/.tmux/plugins/tpm
 
 .PHONY: install-zsh-plugins
 install-zsh-plugins:
@@ -131,12 +167,6 @@ uninstall-zsh-plugins:
 	$(call print-target)
 	rm -rf ~/.zsh/zsh-autosuggestions
 	rm -rf ~/.zsh/zsh-syntax-highlighting
-
-.PHONY: uninstall-tmux-plugin-manager
-uninstall-tmux-plugin-manager:
-	$(call print-target)
-	rm -rf ~/.tmux/plugins/tpm
-
 
 .PHONY: link
 link:

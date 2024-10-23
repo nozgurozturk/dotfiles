@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 # History
 setopt hist_ignore_all_dups             # ignore duplicate entries
 setopt hist_save_no_dups                # don't save duplicates
@@ -11,9 +13,6 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 bindkey -v                              # enable VIM mode
 KEYTIMEOUT=1                            # lower delay of ESC for vim mode
-
-# Tmux
-export ZSH_TMUX_AUTOSTART=true
 
 export LANG=en_US.UTF-8
 
@@ -47,9 +46,6 @@ export FZF_CTRL_T_COMMAND=$EDITOR
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# TERMINAL
-export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
-
 # JAVASCRIPT
 export PATH="$HOME/.deno/bin:$PATH"
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -60,9 +56,27 @@ export GOPATH=$HOME/go
 export GOPRIVATE=github.com/VanMoof/*
 export PATH="$HOME/go/bin:$PATH"
 
-# TERRAFORM
-RPROMPT='$(tf_prompt_info)'
+# RUST
+export PATH="$HOME/.cargo/bin:$PATH"
 
+# TERRAFORM
+alias tf='terraform'
+alias tfa='terraform apply'
+alias tfa!='terraform apply -auto-approve'
+alias tfc='terraform console'
+alias tfd='terraform destroy'
+alias 'tfd!'='terraform destroy -auto-approve'
+alias tff='terraform fmt'
+alias tffr='terraform fmt -recursive'
+alias tfi='terraform init'
+alias tfiu='terraform init -upgrade'
+alias tfo='terraform output'
+alias tfp='terraform plan'
+alias tfv='terraform validate'
+alias tfs='terraform state'
+alias tft='terraform test'
+alias tfsh='terraform show'
+alias tfw='terraform workspace select'
 
 # CUSTOM ALIASES
 alias ls="ls -l --color"
@@ -82,6 +96,7 @@ bindkey -s ^k "tmuxp\n"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source <(fzf --zsh)
+source <(kubectl completion zsh)
 
 # Prompter
 eval "$(starship init zsh)"

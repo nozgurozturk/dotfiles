@@ -9,7 +9,7 @@ fi
 
 # alacritty
 function alacritty_dark() {
-        ln -svf ~/.config/alacritty/themes/catpuccin-macchiato.toml ~/.config/alacritty/themes/_active.toml
+        ln -svf ~/.config/alacritty/themes/catppuccin-macchiato.toml ~/.config/alacritty/themes/_active.toml
         touch ~/.config/alacritty/alacritty.toml
 }
 

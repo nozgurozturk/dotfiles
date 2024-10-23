@@ -10,90 +10,63 @@ $python\
 $lua\
 $nodejs\
 $golang\
-$haskell\
-$rust\
-$ruby\
-$package\
 $aws\
-$docker_context\
+$terraform\
+$kubernetes\
 $jobs\
-$cmd_duration\
 $line_break\
 $character"""
 
 add_newline = true
 
 [directory]
-style = 'bold fg:dark_blue'
+style = 'bold fg:blue'
 format = '[$path ]($style)'
-truncation_length = 3
-truncation_symbol = '…/'
+truncation_length = 2
+truncation_symbol = ' '
 truncate_to_repo = false
 
 [git_branch]
-style = 'fg:green'
+style = 'bold fg:green'
 symbol = ' '
-format = '[on](white) [$symbol$branch ]($style)'
-
-[git_status]
-style = 'fg:green'
-format = '([$all_status$ahead_behind]($style) )'
+format = '[$symbol$branch ]($style)'
 
 [fill]
 symbol = ' '
 
+[golang]
+style = 'fg:#01ADD8'
+symbol = 'go '
+format = '[$symbol($version )]($style) '
+
 [python]
-style = 'teal'
-symbol = ' '
+style = 'fg:teal'
+symbol = 'python '
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-pyenv_version_name = true
-pyenv_prefix = ''
 
 [lua]
-symbol = ' '
+style = 'fg:blue'
+symbol = 'lua '
+format = '[$symbol($version )]($style) '
 
 [nodejs]
-style = 'blue'
-symbol = ' '
+style = 'fg:green'
+symbol = 'node '
+format = '[$symbol($version )]($style) '
 
-[golang]
-style = 'blue'
-symbol = ' '
+[terraform]
+style = 'fg:#7B42BC'
+symbol = '\[tf\]'
+format = '[$symbol$workspace]($style) '
 
-[haskell]
-style = 'blue'
-symbol = ' '
-
-[rust]
-style = 'orange'
-symbol = ' '
-
-[ruby]
-style = 'blue'
-symbol = ' '
-
-[package]
-symbol = '󰏗 '
+[kubernetes]
+style = 'fg:#326CE5'
+symbol = '\[k8s\]'
+format = '[$symbol$context( \($namespace\))]($style) '
+disabled = false
+detect_files = ['values.yaml', 'values.*.yaml', 'Chart.yaml']
 
 [aws]
-symbol = ' '
 style = 'yellow'
-format = '[$symbol($profile )(\[$duration\] )]($style)'
-
-[docker_context]
-symbol = ' '
-style = 'fg:#06969A'
-format = '[$symbol]($style) $path'
-detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
-detect_extensions = ['Dockerfile']
-
-[jobs]
-symbol = ' '
-style = 'red'
-number_threshold = 1
-format = '[$symbol]($style)'
-
-[cmd_duration]
-min_time = 500
-style = 'fg:gray'
-format = '[$duration]($style)'
+symbol = '\[aws\]'
+format = '[$symbol($profile )(\[$duration\] )]($style) '

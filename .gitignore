@@ -1,1 +1,4 @@
 .DS_Store
+
+env/.config/glocud
+env/.config/op

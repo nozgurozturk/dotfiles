@@ -1,39 +1,41 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+local function map(mode, lhs, rhs, opts)
+	opts = opts or { noremap = true }
+	opts.silent = opts.silent ~= false
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+map('n', '<leader>fr', ':%s//g<left><left>', { desc = '[f]ind and [r]eplace' })
+map("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Search and replace word under cursor" })
+
+-- Move to window using the <ctrl> hjkl keys
+map('n', '<C-m>', '<C-w>h', { desc = 'Go to left window', remap = true })
+map('n', '<C-n>', '<C-w>j', { desc = 'Go to lower window', remap = true })
+map('n', '<C-e>', '<C-w>k', { desc = 'Go to upper window', remap = true })
+map('n', '<C-i>', '<C-w>l', { desc = 'Go to right window', remap = true })
+
+-- Move Lines
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line up" })
+
+-- Clear search with <esc>
+map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+
+-- better indenting
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- File editing
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line up" })
-vim.keymap.set(
-	{ "v", "n" },
-	"<C-J>",
-	"mzJ`z",
+map({ "v", "n" }, "<C-J>", "mzJ`z",
 	{ desc = "[J]oin selected lines in visual mode or [J]oin current line with the next in normal mode" }
 )
-vim.keymap.set("x", "p", [["_dP]], { desc = "Paste without overwriting the default register" })
-vim.keymap.set({ "n", "v" }, "d", [["_d]], { desc = "Cut without overwriting the default register" })
-vim.keymap.set(
-	"n",
-	"<leader>rr",
-	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-	{ desc = "Search and replace word under cursor" }
-)
+
+-- Clipboard
+map("x", "p", [["_dP]], { desc = "Paste without overwriting the default register" })
+map({ "n", "v" }, "d", [["_d]], { desc = "Cut without overwriting the default register" })

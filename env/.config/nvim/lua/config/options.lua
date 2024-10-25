@@ -1,4 +1,3 @@
--- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
@@ -7,6 +6,9 @@
 -- vim.opt.number = true
 -- You can also add relative line numbers, for help with jumping.
 --  Experiment for yourself to see if you like it!
+vim.g.mapleader = ' '
+vim.maplocalleader = '\\'
+
 vim.opt.relativenumber = true
 vim.opt.nu = true
 

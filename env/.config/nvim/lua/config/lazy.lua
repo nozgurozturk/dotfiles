@@ -15,6 +15,21 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	checker = { enabled = true, notify = false },
+	checker = { enabled = true, frequency = 60 * 60 * 24 * 7 }, -- automatically check for plugin updates every week
+	performance = {
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				'gzip',
+				'matchit',
+				'matchparen',
+				'netrwPlugin',
+				'tarPlugin',
+				'tohtml',
+				'tutor',
+				'zipPlugin',
+			},
+		},
+	},
 	change_detection = { notify = false },
 })

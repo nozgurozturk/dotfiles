@@ -9,10 +9,9 @@ setopt hist_verify
 
 # Path
 export XDG_CONFIG_HOME=$HOME/.config
-export PATH="/opt/homebrew/bin:$PATH"
 
-bindkey -v                              # enable VIM mode
-KEYTIMEOUT=1                            # lower delay of ESC for vim mode
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export LANG=en_US.UTF-8
 
@@ -23,6 +22,13 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# Plugins
+source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source <(fzf --zsh)
+source <(kubectl completion zsh)
 
 # Globals:
 export FZF_DEFAULT_OPTS="
@@ -43,8 +49,6 @@ export FZF_CTRL_R_OPTS="
 --color header:bold
 --header 'Press CTRL-Y to copy command into clipboard'"
 export FZF_CTRL_T_COMMAND=$EDITOR
-
-export PATH="$HOME/.local/bin:$PATH"
 
 # JAVASCRIPT
 export PATH="$HOME/.deno/bin:$PATH"
@@ -92,11 +96,8 @@ bindkey -s ^p "tmuxs\n"
 bindkey -s ^f "tmuxw\n"
 bindkey -s ^k "tmuxp\n"
 
-# Plugins
-source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source <(fzf --zsh)
-source <(kubectl completion zsh)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # Prompter
 eval "$(starship init zsh)"

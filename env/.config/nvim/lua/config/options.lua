@@ -95,3 +95,19 @@ else
 end
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = '',
+			[vim.diagnostic.severity.WARN] = '',
+		},
+		linehl = {
+			[vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+		},
+		numhl = {
+			[vim.diagnostic.severity.WARN] = 'WarningMsg',
+		},
+	},
+})

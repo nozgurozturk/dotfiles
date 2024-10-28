@@ -13,7 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
-		{ import = "plugins" },
+		{ import = 'plugins' },
+		{ import = 'langs' },
+	},
+	defaults = {
+		lazy = false,                                        -- whether to lazy load all plugins by default
+		version = false,                                     -- always use the latest git commit
 	},
 	checker = { enabled = true, frequency = 60 * 60 * 24 * 7 }, -- automatically check for plugin updates every week
 	performance = {
@@ -31,5 +36,8 @@ require("lazy").setup({
 			},
 		},
 	},
-	change_detection = { notify = false },
+	-- don't reload when config changes because it doesn't really work anyway?
+	change_detection = {
+		enabled = false,
+	}
 })

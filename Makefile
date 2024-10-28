@@ -102,33 +102,6 @@ setup-macos-preferences:
 	# delay until repeat: short
 	defaults write -g InitialKeyRepeat -int 15
 
-	# Key Modifiers
-	# ^ : Ctrl
-	# $ : Shift
-	# ~ : Option (Alt)
-	# @ : Command (Apple)
-	# # : Numeric Keypad
-	#
-	# Non-Printable Key Codes
-	#
-	# Standard
-	# Up Arrow:     \UF700        Backspace:    \U0008        F1:           \UF704
-	# Down Arrow:   \UF701        Tab:          \U0009        F2:           \UF705
-	# Left Arrow:   \UF702        Escape:       \U001B        F3:           \UF706
-	# Right Arrow:  \UF703        Enter:        \U000A        ...
-	# Insert:       \UF727        Page Up:      \UF72C
-	# Delete:       \UF728        Page Down:    \UF72D
-	# Home:         \UF729        Print Screen: \UF72E
-	# End:          \UF72B        Scroll Lock:  \UF72F
-	# Break:        \UF732        Pause:        \UF730
-	# SysReq:       \UF731        Menu:         \UF735
-	# Help:         \UF746
-	#
-	# OS X
-	# delete:       \U007F	
-	#
-	defaults write -g NSUserKeyEquivalents -dict-add "'Window->Move & Resize->Top'" "^~\UF700"
-
 	# Restart dock and finder to apply changes
 	killall Dock && killall Finder && killall SystemUIServer
 
@@ -161,12 +134,15 @@ install-zsh-plugins:
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 	# Syntax Highlighting
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
+	# Better history search
+	git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/zsh-history-substring-search
 
 .PHONY: uninstall-zsh-plugins
 uninstall-zsh-plugins:
 	$(call print-target)
 	rm -rf ~/.zsh/zsh-autosuggestions
 	rm -rf ~/.zsh/zsh-syntax-highlighting
+	rm -rf ~/.zsh/zsh-history-substring-search/
 
 .PHONY: link
 link:
@@ -180,11 +156,8 @@ link:
 	[ -L ~/.local/bin/tmuxp ] || ln -svf $(ENV_DIR)/.local/bin/tmuxp $(HOME)/.local/bin/tmuxp
 	[ -L ~/.local/bin/tmuxf ] || ln -svf $(ENV_DIR)/.local/bin/tmuxw $(HOME)/.local/bin/tmuxw
 	[ -L ~/.local/bin/tmuxs ] || ln -svf $(ENV_DIR)/.local/bin/tmuxs $(HOME)/.local/bin/tmuxs
-	[ -L ~/.local/bin/swthm ] || ln -svf $(ENV_DIR)/.local/bin/swthm $(HOME)/.local/bin/swthm
 	# Link git config
 	[ -L ~/.gitconfig ] || ln -svf $(ENV_DIR)/.gitconfig $(HOME)
-	# Link theme-changed-notify config
-	[ -L ~/Library/LaunchAgents/com.nozgurozturk.theme-changed-notify.plist ] || ln -svf $(ENV_DIR)/com.nozgurozturk.theme-changed-notify.plist $(HOME)/Library/LaunchAgents/com.nozgurozturk.theme-changed-notify.plist
 
 .PHONY: unlink
 unlink:
@@ -197,11 +170,8 @@ unlink:
 	rm -rf ~/.local/bin/tmuxp
 	rm -rf ~/.local/bin/tmuxw
 	rm -rf ~/.local/bin/tmuxs
-	rm -rf ~/.local/bin/swthm
 	# Unlink git config
 	rm -rf ~/.gitconfig
-	# Unlink theme-changed-notify config
-	rm -rf ~/Library/LaunchAgents/com.nozgurozturk.theme-changed-notify.plist
 
 define print-target
     @printf "Executing target: \033[36m$@\033[0m\n"

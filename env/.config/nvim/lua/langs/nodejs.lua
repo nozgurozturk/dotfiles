@@ -13,7 +13,7 @@ return {
 		'williamboman/mason.nvim',
 		opts = function(_, opts)
 			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(opts.ensure_installed, { 'biome', 'denols' })
+				vim.list_extend(opts.ensure_installed, { 'biome', 'denols', 'ts_ls' })
 			end
 		end,
 	},
@@ -23,6 +23,7 @@ return {
 			servers = {
 				biome = {},
 				denols = {},
+				ts_ls = {},
 			},
 		},
 	},

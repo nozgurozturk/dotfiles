@@ -15,7 +15,10 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { { "j-hui/fidget.nvim", opts = {} } },
+		dependencies = {
+			'saghen/blink.cmp',
+			{ "j-hui/fidget.nvim", opts = {} }
+		},
 		config = function(_, opts)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -70,6 +73,7 @@ return {
 			local lspconfig = require('lspconfig')
 
 			for server, config in pairs(opts.servers) do
+				-- config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 				lspconfig[server].setup(config)
 			end
 		end,

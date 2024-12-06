@@ -13,7 +13,7 @@ vim.opt.relativenumber = true
 vim.opt.nu = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
+vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -22,7 +22,7 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-	vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = 'unnamedplus'
 end)
 
 -- Enable break indent
@@ -35,19 +35,18 @@ vim.opt.linebreak = true
 
 -- Save undo history
 vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+vim.opt.signcolumn = 'yes'
+vim.opt.isfname:append '@-@'
 --
 -- Color column at 120 characters
 -- vim.opt.colorcolumn = "120"
-
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -61,10 +60,10 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "│ ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = '│ ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -83,31 +82,31 @@ vim.opt.backup = false
 vim.opt.termguicolors = true
 
 -- Spell checker
-vim.opt.spelllang = "en_us"
+vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
 -- Get the system appearance and set background color
-local system_appearance = vim.fn.system("defaults read -g AppleInterfaceStyle")
-if system_appearance == "Dark\n" then
-	vim.opt.background = "dark"
+local system_appearance = vim.fn.system 'defaults read -g AppleInterfaceStyle'
+if system_appearance == 'Dark\n' then
+  vim.opt.background = 'dark'
 else
-	vim.opt.background = "light"
+  vim.opt.background = 'light'
 end
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
-vim.diagnostic.config({
-	virtual_text = true,
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = '',
-			[vim.diagnostic.severity.WARN] = '',
-		},
-		linehl = {
-			[vim.diagnostic.severity.ERROR] = 'ErrorMsg',
-		},
-		numhl = {
-			[vim.diagnostic.severity.WARN] = 'WarningMsg',
-		},
-	},
-})
+vim.diagnostic.config {
+  virtual_text = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+    },
+    numhl = {
+      [vim.diagnostic.severity.WARN] = 'WarningMsg',
+    },
+  },
+}

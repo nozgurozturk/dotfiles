@@ -1,28 +1,28 @@
 return {
-	-- treesitter
-	{
-		'nvim-treesitter/nvim-treesitter',
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(opts.ensure_installed, { 'vim', 'vimdoc', 'diff', 'query' })
-			end
-		end
-	},
-	-- LSP
-	{
-		'williamboman/mason.nvim',
-		opts = function(_, opts)
-			if type(opts.ensure_installed) == 'table' then
-				vim.list_extend(opts.ensure_installed, { 'vim-language-server' })
-			end
-		end,
-	},
-	{
-		'neovim/nvim-lspconfig',
-		opts = {
-			servers = {
-				vimls = {},
-			},
-		},
-	},
+  -- treesitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == 'table' then
+        vim.list_extend(opts.ensure_installed, { 'vim', 'vimdoc', 'diff', 'query' })
+      end
+    end,
+  },
+  -- LSP
+  {
+    'williamboman/mason.nvim',
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == 'table' then
+        vim.list_extend(opts.ensure_installed, { 'vim-language-server' })
+      end
+    end,
+  },
+  {
+    'neovim/nvim-lspconfig',
+    opts = {
+      servers = {
+        vimls = {},
+      },
+    },
+  },
 }

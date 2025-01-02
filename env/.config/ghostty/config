@@ -1,0 +1,26 @@
+initial-command =  /opt/homebrew/bin/tmux new-session -A -D -s main
+
+# Font
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+font-thicken = false
+font-size = 12
+
+# Appearance
+theme = dark:catppuccin-frappe,light:catppuccin-latte
+adjust-cursor-thickness = 2
+adjust-underline-position = 2
+bold-is-bright = true
+link-url = true
+
+# MacOS Specific
+macos-titlebar-style =  hidden
+macos-option-as-alt = true
+macos-auto-secure-input = true
+
+
+
+# Keybindings
+
+keybind = ctrl+P=toggle_quick_terminal

@@ -29,15 +29,21 @@ return {
   ---@module "conform"
   ---@type conform.setupOpts
   opts = {
+    async = true,
     -- Set default options
     default_format_opts = {
       lsp_format = 'fallback',
     },
     -- Set up format-on-save
-    format_on_save = {
+    -- format_on_save = { timeout_ms = 500 },
+    -- If this is set, Conform will run the formatter asynchronously after save.
+    -- It will pass the table to conform.format().
+    -- This can also be a function that returns the table.
+    format_after_save = {
       lsp_format = 'fallback',
-      timeout_ms = 100,
     },
+
+    formatters_by_ft = {},
   },
   init = function()
     -- If you want the formatexpr, here is the place to set it

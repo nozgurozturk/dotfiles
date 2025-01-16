@@ -53,6 +53,7 @@ format = '[$symbol($version )]($style) '
 style = 'fg:green'
 symbol = 'node '
 format = '[$symbol($version )]($style) '
+disabled = true
 
 [terraform]
 style = 'fg:#7B42BC'

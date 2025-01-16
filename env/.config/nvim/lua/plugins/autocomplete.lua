@@ -33,7 +33,7 @@ return {
       accept = { auto_brackets = { enabled = false } },
 
       -- Insert completion item on selection, don't select by default
-      list = { selection = 'auto_insert' },
+      list = { selection = { preselect = false, auto_insert = true } },
 
       menu = {
         -- Don't automatically show the completion menu

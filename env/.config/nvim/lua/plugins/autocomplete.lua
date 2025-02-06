@@ -38,13 +38,13 @@ return {
       menu = {
         -- Don't automatically show the completion menu
         auto_show = true,
-
         -- nvim-cmp style menu
         draw = {
           columns = {
             { 'label', 'label_description', gap = 2 },
             { 'kind_icon', 'kind', gap = 2 },
           },
+          treesitter = { 'lsp' },
         },
       },
 

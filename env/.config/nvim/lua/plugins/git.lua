@@ -13,11 +13,11 @@ return {
           changedelete = { text = '┋' },
           untracked = { text = '┇' },
         },
+        current_line_blame = true,
         on_attach = function(bufnr)
-          local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
+          local function map(mode, keys, func, desc)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'Git: ' .. desc })
           end
 
           -- Navigation
@@ -27,7 +27,7 @@ return {
             else
               gitsigns.nav_hunk 'next'
             end
-          end)
+          end, 'Go to next change')
 
           map('n', '[c', function()
             if vim.wo.diff then
@@ -35,29 +35,30 @@ return {
             else
               gitsigns.nav_hunk 'prev'
             end
-          end)
+          end, 'Go to previous change')
 
           -- Actions
-          map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[h]unk [s]tage' })
-          map('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[h]unk [r]eset' })
+          map('n', '<leader>hs', gitsigns.stage_hunk, '[h]unk [s]tage')
           map('v', '<leader>hs', function()
             gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-          end)
+          end, '[h]unk [s]tage')
+          map('n', '<leader>hS', gitsigns.stage_buffer, '[h]unk [S]tage buffer')
+
+          map('n', '<leader>hr', gitsigns.reset_hunk, '[h]unk [r]eset')
           map('v', '<leader>hr', function()
             gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-          end)
-          map('n', '<leader>hS', gitsigns.stage_buffer, { desc = '[h]unk [S]tage buffer' })
-          map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = '[h]unk [u]ndo stage' })
-          map('n', '<leader>hR', gitsigns.reset_buffer, { desc = '[h]unk [R]eset buffer' })
-          map('n', '<leader>hp', gitsigns.preview_hunk, { desc = '[h]unk [p]review' })
-          map('n', '<leader>hd', gitsigns.diffthis, { desc = '[h]unk [d]iff' })
+          end, '[h]unk [r]eset')
+          map('n', '<leader>hR', gitsigns.reset_buffer, '[h]unk [R]eset buffer')
+
+          map('n', '<leader>hu', gitsigns.undo_stage_hunk, '[h]unk [u]ndo stage')
+
+          map('n', '<leader>hp', gitsigns.preview_hunk, '[h]unk [p]review')
+
+          map('n', '<leader>hd', gitsigns.diffthis, '[h]unk [d]iff')
           map('n', '<leader>hD', function()
             gitsigns.diffthis '~'
-          end)
-          map('n', '<leader>td', gitsigns.toggle_deleted)
-
-          -- Text object
-          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          end, '[h]unk [D]iff buffer')
+          map('n', '<leader>td', gitsigns.toggle_deleted, '[t]oggle [d]eleted')
         end,
       }
     end,

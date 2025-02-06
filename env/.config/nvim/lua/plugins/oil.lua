@@ -9,7 +9,11 @@ return {
       columns = {},
     }
 
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-    vim.keymap.set('n', '<space>-', oil.toggle_float, { desc = 'Open parent directory in floating window' })
+    local map = function(mode, keys, func, desc)
+      mode = mode or 'n'
+      vim.keymap.set(mode, keys, func, { desc = 'Ex: ' .. desc })
+    end
+
+    map('n', '-', '<CMD>Oil<CR>', 'Open parent directory')
   end,
 }

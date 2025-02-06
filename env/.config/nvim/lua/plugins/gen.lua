@@ -1,36 +1,39 @@
 return {
   {
-    'David-Kunz/gen.nvim',
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
     opts = {
-      model = 'llama3.2:1b',
-      quit_map = 'q',
-      retry_map = '<c-r>',
-      accept_map = '<c-cr>',
-      host = 'localhost',
-      port = '11434',
-      display_mode = 'float',
-      show_prompt = false,
-      show_model = false,
-      no_auto_close = false,
-      file = false,
-      hidden = false,
-      init = function(options)
-        pcall(io.popen, 'ollama serve > /dev/null 2>&1 &')
-      end,
-
-      command = function(options)
-        local body = { model = options.model, stream = true }
-        return 'curl --silent --no-buffer -X POST http://' .. options.host .. ':' .. options.port .. '/api/chat -d $body'
-      end,
-      debug = false, -- Prints errors and the command which is run.},
+      strategies = {
+        chat = {
+          adapter = 'gemini',
+        },
+        inline = {
+          adapter = 'gemini',
+          keymaps = {
+            accept_change = {
+              modes = { n = '<C-y>' },
+              description = 'Accept the suggested change',
+            },
+            reject_change = {
+              modes = { n = '<C-c>' },
+              description = 'Reject the suggested change',
+            },
+          },
+        },
+      },
     },
     config = function(_, opts)
-      local gen = require 'gen'
-      gen.setup(opts)
+      local function map(mode, keys, func, desc)
+        mode = mode or 'n'
+        vim.keymap.set(mode, keys, func, { desc = 'AI: ' .. desc, noremap = true, silent = true })
+      end
 
-      gen.prompts['Review_Code'].model = 'codegemma:2b'
-      gen.prompts['Enhance_Code'].model = 'codegemma:2b'
-      gen.prompts['Change_Code'].model = 'codegemma:2b'
+      require('codecompanion').setup(opts)
+
+      map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', 'CodeCompanionActions')
     end,
   },
   {

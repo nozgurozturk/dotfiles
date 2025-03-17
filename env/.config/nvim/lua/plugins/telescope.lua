@@ -7,10 +7,25 @@ return {
     { 'nvim-telescope/telescope-ui-select.nvim' },
   },
   config = function()
+    local vimgrep_arguments = { unpack(require('telescope.config').values.vimgrep_arguments) }
+    -- Show hidden files
+    table.insert(vimgrep_arguments, '--hidden')
+    -- Don't search .git directory
+    table.insert(vimgrep_arguments, '--glob')
+    table.insert(vimgrep_arguments, '!**/.git/*')
+
     require('telescope').setup {
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
+        },
+      },
+      defaults = {
+        vimgrep_arguments = vimgrep_arguments,
+      },
+      pickers = {
+        find_files = {
+          find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/.' },
         },
       },
     }

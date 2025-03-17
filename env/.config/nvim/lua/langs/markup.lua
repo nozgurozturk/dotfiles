@@ -43,7 +43,7 @@ return {
       formatters_by_ft = {
         yaml = { 'yamlfix', 'yamlfmt' },
         toml = { 'taplo' },
-        html = { 'biome' },
+        html = { 'biome-check' },
       },
     },
   },

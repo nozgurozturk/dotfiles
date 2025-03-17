@@ -58,9 +58,9 @@ return {
     sources = {
       -- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
       default = { 'lsp', 'path', 'snippets', 'buffer' },
-      -- Disable cmdline completions
-      cmdline = {},
     },
+    -- Disable cmdline completions
+    cmdline = {},
 
     -- Experimental signature help support
     signature = { enabled = true },

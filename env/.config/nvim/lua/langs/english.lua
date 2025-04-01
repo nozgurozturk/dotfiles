@@ -1,3 +1,5 @@
+vim.lsp.enable { 'harper_ls' }
+
 return {
   -- LSP
   {
@@ -7,13 +9,5 @@ return {
         vim.list_extend(opts.ensure_installed, { 'harper-ls' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        harper_ls = {},
-      },
-    },
   },
 }

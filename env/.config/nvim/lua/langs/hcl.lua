@@ -1,11 +1,12 @@
+vim.lsp.enable { 'terraform_ls' }
+
 return {
-  { 'slint-ui/vim-slint', ft = 'slint' },
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'slint' })
+        vim.list_extend(opts.ensure_installed, { 'terraform', 'hcl' })
       end
     end,
   },
@@ -14,15 +15,17 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'slint_lsp' })
+        vim.list_extend(opts.ensure_installed, { 'terraform-ls', 'tflint' })
       end
     end,
   },
+  -- formatting (conform)
   {
-    'neovim/nvim-lspconfig',
+    'stevearc/conform.nvim',
     opts = {
-      servers = {
-        slint_lsp = {},
+      formatters_by_ft = {
+        terraform = { 'terraform_fmt' },
+        hcl = { 'terraform_fmt' },
       },
     },
   },

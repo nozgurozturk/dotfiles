@@ -1,3 +1,5 @@
+vim.lsp.enable { 'ruff' }
+
 return {
   -- treesitter
   {
@@ -13,37 +15,9 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'basedpyright', 'ruff' })
+        vim.list_extend(opts.ensure_installed, { 'ruff' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        ruff = {
-          init_options = {
-            settings = {
-              -- Ruff language server settings go here
-            },
-          },
-        },
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              disableOrganizeImports = true,
-              analysis = {
-                ignore = { '*' },
-                useLibraryCodeForTypes = true,
-                typeCheckingMode = 'standard',
-                diagnosticMode = 'openFilesOnly',
-                autoImportCompletions = true,
-              },
-            },
-          },
-        },
-      },
-    },
   },
   -- formatting (conform)
   {

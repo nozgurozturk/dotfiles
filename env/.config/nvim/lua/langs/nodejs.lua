@@ -1,3 +1,5 @@
+vim.lsp.enable { 'biome', 'ts_ls' }
+
 return {
   -- treesitter
   {
@@ -13,18 +15,9 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'biome', 'ts_ls' })
+        vim.list_extend(opts.ensure_installed, { 'biome', 'typescript-language-server' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        biome = {},
-        ts_ls = {},
-      },
-    },
   },
   -- formatting (conform)
   {

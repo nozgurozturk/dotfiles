@@ -1,3 +1,10 @@
+vim.lsp.enable {
+  'html',
+  'marksman',
+  'taplo',
+  'yamlls',
+}
+
 return {
   {
     'iamcco/markdown-preview.nvim',
@@ -21,20 +28,9 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'yamlls', 'taplo', 'html', 'marksman' })
+        vim.list_extend(opts.ensure_installed, { 'yaml-language-server', 'yamlfix', 'yamlfmt', 'taplo', 'marksman' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        yamlls = {},
-        taplo = {},
-        html = {},
-        marksman = {},
-      },
-    },
   },
   -- formatting (conform)
   {

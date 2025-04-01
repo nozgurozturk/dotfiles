@@ -4,9 +4,17 @@ return {
     local oil = require 'oil'
     oil.setup {
       view_options = {
+        -- Show files and directories that start with "."
         show_hidden = true,
       },
-      columns = {},
+      -- Id is automatically added at the beginning, and name at the end
+      -- See :help oil-columns
+      columns = {
+        -- 'icon',
+        -- "permissions",
+        -- "size",
+        -- "mtime",
+      },
     }
 
     local map = function(mode, keys, func, desc)

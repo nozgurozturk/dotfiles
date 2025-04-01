@@ -1,3 +1,5 @@
+vim.lsp.enable { 'vimls' }
+
 return {
   -- treesitter
   {
@@ -16,13 +18,5 @@ return {
         vim.list_extend(opts.ensure_installed, { 'vim-language-server' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        vimls = {},
-      },
-    },
   },
 }

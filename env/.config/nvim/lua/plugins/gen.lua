@@ -1,5 +1,35 @@
 return {
   {
+    'github/copilot.vim',
+    config = function()
+      -- Disable copilot by default
+      vim.g.copilot_enabled = false
+      vim.g.copilot_no_tab_map = true
+
+      local function toggle()
+        vim.fn['copilot#Clear']()
+        if vim.g.copilot_enabled then
+          vim.g.copilot_enabled = false
+        else
+          vim.g.copilot_enabled = true
+        end
+      end
+
+      local function map(mode, keys, func, opts)
+        mode = mode or 'n'
+
+        opts.desc = 'AI: ' .. opts.desc
+        opts.noremap = true
+        opts.silent = true
+
+        vim.keymap.set(mode, keys, func, opts)
+      end
+
+      map('i', '<C-\\>', toggle, { desc = 'Toggle Copilot' })
+      map('i', '<C-y>', 'copilot#Accept("\\<CR>")', { desc = 'Accept Copilot suggestion', expr = true, replace_keycodes = false })
+    end,
+  },
+  {
     'olimorris/codecompanion.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -8,10 +38,10 @@ return {
     opts = {
       strategies = {
         chat = {
-          adapter = 'gemini',
+          adapter = 'copilot',
         },
         inline = {
-          adapter = 'gemini',
+          adapter = 'copilot',
           keymaps = {
             accept_change = {
               modes = { n = '<C-y>' },
@@ -26,26 +56,18 @@ return {
       },
     },
     config = function(_, opts)
-      local function map(mode, keys, func, desc)
+      local function map(mode, keys, func, opts)
         mode = mode or 'n'
-        vim.keymap.set(mode, keys, func, { desc = 'AI: ' .. desc, noremap = true, silent = true })
-      end
 
+        opts.desc = 'AI: ' .. opts.desc
+        opts.noremap = true
+        opts.silent = true
+
+        vim.keymap.set(mode, keys, func, opts)
+      end
       require('codecompanion').setup(opts)
 
-      map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', 'CodeCompanionActions')
-    end,
-  },
-  {
-    'Exafunction/codeium.vim',
-    event = 'BufEnter',
-    config = function()
-      vim.g.codeium_manual = true
-      vim.g.codeium_no_map_tab = true
-
-      vim.keymap.set('i', '<C-y>', function()
-        return vim.fn['codeium#Accept']()
-      end, { expr = true, silent = true })
+      map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanionActions' })
     end,
   },
 }

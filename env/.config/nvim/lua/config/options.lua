@@ -85,6 +85,7 @@ vim.opt.termguicolors = true
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
 
+-- Styling
 -- Get the system appearance and set background color
 local system_appearance = vim.fn.system 'defaults read -g AppleInterfaceStyle'
 if system_appearance == 'Dark\n' then
@@ -92,6 +93,7 @@ if system_appearance == 'Dark\n' then
 else
   vim.opt.background = 'light'
 end
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 

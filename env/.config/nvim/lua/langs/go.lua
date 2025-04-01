@@ -1,5 +1,10 @@
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-  group = vim.api.nvim_create_augroup('ftd_gotmpl', { clear = true }),
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+-- Go template
+-- This autocommand will detect go template files, and set them to filetype gotmpl
+local GoTmplGroup = augroup('GoTmpl', { clear = true })
+autocmd({ 'BufNewFile', 'BufRead' }, {
+  group = GoTmplGroup,
   pattern = '*.tmpl',
   callback = function()
     if vim.fn.search('{{.\\+}}', 'nw') then
@@ -10,6 +15,8 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
     end
   end,
 })
+
+vim.lsp.enable { 'golangci_lint_ls', 'gopls' }
 
 return {
   -- treesitter
@@ -36,26 +43,9 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'gopls', 'golangci_lint_ls', 'gofumpt', 'goimports' })
+        vim.list_extend(opts.ensure_installed, { 'gopls', 'golangci-lint', 'gofumpt', 'goimports' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        gopls = {
-          analyses = {
-            shadow = true,
-            unusedvariable = true,
-          },
-          vulncheck = true,
-          staticcheck = true,
-          gofumpt = true,
-        },
-        golangci_lint_ls = {},
-      },
-    },
   },
   -- formatting (conform)
   {

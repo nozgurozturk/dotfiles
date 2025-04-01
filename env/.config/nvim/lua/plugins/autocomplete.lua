@@ -65,4 +65,22 @@ return {
     -- Experimental signature help support
     signature = { enabled = true },
   },
+  config = function(_, opts)
+    local blink = require 'blink.cmp'
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    capabilities = vim.tbl_deep_extend('force', capabilities, blink.get_lsp_capabilities({}, false))
+
+    capabilities = vim.tbl_deep_extend('force', capabilities, {
+      textDocument = {
+        foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        },
+      },
+    })
+
+    blink.setup(opts)
+  end,
 }

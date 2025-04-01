@@ -1,3 +1,5 @@
+vim.lsp.enable { 'autotools_ls', 'bashls' }
+
 return {
   -- treesitter
   {
@@ -16,14 +18,5 @@ return {
         vim.list_extend(opts.ensure_installed, { 'bash-language-server', 'autotools-language-server' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        bashls = {},
-        autotools_ls = {},
-      },
-    },
   },
 }

@@ -60,6 +60,8 @@ return {
       })
     end, '[/] Fuzzily search in current buffer')
 
+    -- It's also possible to pass additional configuration options.
+    --  See `:help telescope.builtin.live_grep()` for information about particular keys
     map('n', '<leader>s/', function()
       builtin.live_grep {
         grep_open_files = true,
@@ -67,6 +69,7 @@ return {
       }
     end, '[S]earch [/] in Open Files')
 
+    -- Shortcut for searching your Neovim configuration files
     map('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, '[S]earch [N]eovim files')

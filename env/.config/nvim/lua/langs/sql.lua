@@ -1,10 +1,12 @@
+vim.lsp.enable { 'postgres_lsp' }
+
 return {
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'terraform', 'hcl' })
+        vim.list_extend(opts.ensure_installed, { 'sql' })
       end
     end,
   },
@@ -13,26 +15,16 @@ return {
     'williamboman/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'terraformls', 'tflint' })
+        vim.list_extend(opts.ensure_installed, { 'postgrestools', 'sql-formatter' })
       end
     end,
-  },
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        terraformls = {},
-        tflint = {},
-      },
-    },
   },
   -- formatting (conform)
   {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        terraform = { 'terraform_fmt' },
-        hcl = { 'terraform_fmt' },
+        sql = { 'sql_formatter' },
       },
     },
   },

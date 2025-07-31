@@ -14,7 +14,7 @@ return {
   },
   -- LSP
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
         vim.list_extend(opts.ensure_installed, { 'helm-ls' })
@@ -26,7 +26,7 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        helm = { 'yamlfix', 'yamlfmt', lsp_format = 'prefer' },
+        helm = { lsp_format = 'prefer' },
       },
     },
   },

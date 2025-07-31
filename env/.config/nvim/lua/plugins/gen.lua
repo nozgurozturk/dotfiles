@@ -36,9 +36,36 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     opts = {
+      adapters = {
+        gemini = function()
+          return require('codecompanion.adapters').extend('gemini', {
+            schema = {
+              model = {
+                default = 'gemini-2.5-pro-preview-05-06',
+              },
+            },
+          })
+        end,
+      },
+      prompt_library = {
+        ['Fix grammer and typos'] = {
+          strategy = 'inline',
+          description = 'Fix grammar and typos in the selected text',
+          prompts = {
+            {
+              role = 'system',
+              content = '[[You are a helpful assistant that fixes grammar and typos, and then enhances the wording in English.]]',
+            },
+            {
+              role = 'user',
+              content = 'Fix grammer and typos, and then enhance the wording.',
+            },
+          },
+        },
+      },
       strategies = {
         chat = {
-          adapter = 'copilot',
+          adapter = 'gemini',
         },
         inline = {
           adapter = 'copilot',

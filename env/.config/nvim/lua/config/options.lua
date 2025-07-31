@@ -12,6 +12,9 @@ vim.maplocalleader = '\\'
 vim.opt.relativenumber = true
 vim.opt.nu = true
 
+--
+vim.opt.completeopt = 'menu,menuone,preview'
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -32,6 +35,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.linebreak = true
+vim.opt.wrap = true
 
 -- Save undo history
 vim.opt.undofile = true
@@ -82,7 +86,7 @@ vim.opt.backup = false
 vim.opt.termguicolors = true
 
 -- Spell checker
-vim.opt.spelllang = 'en_us'
+vim.opt.spelllang = { 'en' }
 vim.opt.spell = true
 
 -- Styling
@@ -94,15 +98,24 @@ else
   vim.opt.background = 'light'
 end
 
+-- folds
+vim.o.foldcolumn = '0'
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Diagnostic
 vim.diagnostic.config {
   virtual_text = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.ERROR] = '',
       [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.HINT] = '',
+      [vim.diagnostic.severity.INFO] = '',
     },
     linehl = {
       [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
@@ -111,4 +124,15 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.WARN] = 'WarningMsg',
     },
   },
+  update_in_insert = true,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = 'minimal',
+    source = true,
+  },
 }
+
+-- LSP
+vim.lsp.set_log_level(vim.log.levels.OFF)

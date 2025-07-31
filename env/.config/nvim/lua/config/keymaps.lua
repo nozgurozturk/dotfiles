@@ -18,11 +18,18 @@ map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selected line down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected line up' })
 
 -- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<Cmd>nohlsearch<CR>', { desc = 'Escape and clear hlsearch' })
+-- map({ 'i', 'n' }, '<esc>', '<Cmd>nohlsearch<CR>', { desc = 'Escape and clear hlsearch' })
 
 -- better indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')
+
+local diagnostic_goto = function(count, severity)
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    vim.diagnostic.jump { count, severity }
+  end
+end
 
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.get_next, { desc = 'Go to previous [D]iagnostic message' })

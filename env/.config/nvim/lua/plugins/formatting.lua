@@ -2,15 +2,16 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
+  lazy = true,
   keys = {
     {
       -- Customize or remove this keymap to your liking
-      '<leader>f',
+      '<leader>cF',
       function()
-        require('conform').format { async = true }
+        require('conform').format { formatters = { 'injected' }, timeout_ms = 3000 }
       end,
-      mode = '',
-      desc = 'Format buffer',
+      mode = { 'n', 'v' },
+      desc = 'Format injected langs',
     },
   },
   -- This will provide type hinting with LuaLS
@@ -20,7 +21,10 @@ return {
     async = true,
     -- Set default options
     default_format_opts = {
-      lsp_format = 'fallback',
+      timeout_ms = 3000,
+      async = false, -- not recommended to change
+      quiet = false, -- not recommended to change
+      lsp_format = 'fallback', -- not recommended to change
     },
     -- Set up format-on-save
     -- format_on_save = { timeout_ms = 500 },

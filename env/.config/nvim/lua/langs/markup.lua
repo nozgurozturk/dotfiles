@@ -7,14 +7,9 @@ vim.lsp.enable {
 
 return {
   {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    ft = { 'markdown' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
+    'OXY2DEV/markview.nvim',
+    lazy = false,
   },
-
   {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
@@ -25,10 +20,10 @@ return {
   },
   -- LSP
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'yaml-language-server', 'yamlfix', 'yamlfmt', 'taplo', 'marksman' })
+        vim.list_extend(opts.ensure_installed, { 'yaml-language-server', 'yamlfix', 'taplo', 'marksman' })
       end
     end,
   },
@@ -36,8 +31,18 @@ return {
   {
     'stevearc/conform.nvim',
     opts = {
+      formatters = {
+        yamlfix = {
+          command = 'yamlfix',
+          env = {
+            YAMLFIX_EXPLICIT_START = false,
+            YAMLFIX_SECTION_WHITELINES = '1',
+            YAMLFIX_LINE_LENGTH = '160',
+          },
+        },
+      },
       formatters_by_ft = {
-        yaml = { 'yamlfix', 'yamlfmt' },
+        yaml = { 'yamlfix' },
         toml = { 'taplo' },
         html = { 'biome-check' },
       },

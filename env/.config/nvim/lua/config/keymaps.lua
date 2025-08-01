@@ -31,14 +31,6 @@ local diagnostic_goto = function(count, severity)
   end
 end
 
--- Diagnostic keymaps
-local diagnostic_goto = function(count, severity)
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    vim.diagnostic.jump { count = count, severity = severity }
-  end
-end
-
 map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
 map('n', ']d', diagnostic_goto(1), { desc = 'Next Diagnostic' })
 map('n', '[d', diagnostic_goto(-1), { desc = 'Prev Diagnostic' })
@@ -64,7 +56,6 @@ map('x', 'p', [["_dP]], { desc = 'Paste without overwriting the default register
 map({ 'n', 'v' }, 'd', [["_d]], { desc = 'Cut without overwriting the default register' })
 
 -- LSP
-
 local definition_goto = function()
   local builtin = require 'telescope.builtin'
   return builtin.lsp_definitions()

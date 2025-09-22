@@ -18,6 +18,11 @@
 	editor = nvim
 	quotepath = false
 	excludesfile = /Users/ozgurozturk/.gitignore
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
 [init]
 	defaultBranch = main
 [push]
@@ -27,6 +32,7 @@
 [mergetool]
 	keepBackup = true
 [merge "ours"]
+	conflictStyle = zdiff3
     driver = true
 [commit]
 	template = ~/.git-commit-template

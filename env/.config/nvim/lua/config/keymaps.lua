@@ -5,7 +5,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 map('n', '<leader>fr', ':%s//g<left><left>', { desc = '[f]ind and [r]eplace' })
-map('n', '<leader>rr', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Search and replace word under cursor' })
+map({ 'n', 'v' }, '<leader>rr', '[[:%s/<<C-r><C-w>>/<C-r><C-w>/gI<Left><Left><Left>]]', { desc = 'Search and replace word under cursor' })
 
 -- Move to window using the <ctrl> hjkl keys
 map('n', '<C-m>', '<C-w>h', { desc = 'Go to left window', remap = true })
@@ -18,7 +18,10 @@ map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selected line down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected line up' })
 
 -- Clear search with <esc>
--- map({ 'i', 'n' }, '<esc>', '<Cmd>nohlsearch<CR>', { desc = 'Escape and clear hlsearch' })
+map({ 'n' }, '<esc>', '<Cmd>nohlsearch<CR>', { desc = 'Escape and clear hlsearch' })
+
+-- Minimap
+map('n', '<leader>m', '<cmd>lua MiniMap.toggle()<cr>', { desc = "Toggle 'minimap'" })
 
 -- better indenting
 map('v', '<', '<gv')
@@ -27,7 +30,7 @@ map('v', '>', '>gv')
 local diagnostic_goto = function(count, severity)
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    vim.diagnostic.jump { count, severity }
+    vim.diagnostic.jump { count = count, severity = severity }
   end
 end
 
@@ -56,22 +59,50 @@ map('x', 'p', [["_dP]], { desc = 'Paste without overwriting the default register
 map({ 'n', 'v' }, 'd', [["_d]], { desc = 'Cut without overwriting the default register' })
 
 -- LSP
-local definition_goto = function()
-  local builtin = require 'telescope.builtin'
-  return builtin.lsp_definitions()
-end
-
-map('n', 'gd', definition_goto, { desc = '[g]o to [d]efinition' })
-
--- WARN: This is not Goto Definition, this is Goto Declaration.
---  For example, in C this would take you to the header.
-map('n', 'gD', vim.lsp.buf.declaration, { desc = '[g]o to [D]eclaration' })
-map('n', 'gi', vim.lsp.buf.implementation, { desc = '[g]o to [i]mplementation' })
-map('n', 'gt', vim.lsp.buf.type_definition, { desc = '[g]o to [t]type definition' })
-map('n', 'gr', vim.lsp.buf.references, { desc = '[g]o to [r]eferences' })
-map('n', 'fs', vim.lsp.buf.document_symbol, { desc = '[f]ind [s]ymbol in current document' })
-map('n', 'fS', vim.lsp.buf.workspace_symbol, { desc = '[f]ind [S]ymbol in current workspace' })
+map('n', 'gd', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'definition'}) <cr>", { desc = '[g]o to [d]efinitions' })
+map('n', 'gD', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'declaration'}) <cr>", { desc = '[g]o to [D]eclaration' })
+map('n', 'gr', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'references'}) <cr>", { desc = '[g]o to [r]eferences' })
+map('n', 'gi', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'implementation'}) <cr>", { desc = '[g]o to [i]mplementation' })
+map('n', 'gt', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'type_definition'}) <cr>", { desc = '[g]o to [t]type definition' })
+map('n', 'fs', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'document_symbol'}) <cr>", { desc = '[f]ind [s]ymbol in current document' })
+map('n', 'fS', "<cmd>lua MiniExtra.pickers.lsp({ scope = 'workspace_symbol'}) <cr>", { desc = '[f]ind [S]ymbol in current workspace' })
+map('n', 'gH', vim.lsp.buf.signature_help, { desc = '[g]o to signature [h]elp' })
 
 map('n', '<leader>rn', vim.lsp.buf.rename, { desc = '[r]e[n]ame' })
+
 map({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = '[C]ode [A]ction' })
 map('n', 'K', vim.lsp.buf.hover, { desc = 'Show [K]eyword information' })
+
+-- Picker
+map('n', '<leader>sg', '<cmd>lua MiniPick.builtin.grep_live()<cr>', { desc = 'Grep live' })
+map('n', '<leader>sb', '<cmd>lua MiniPick.builtin.buffers()<cr>', { desc = 'Buffers' })
+map('n', '<leader>sf', '<cmd>lua MiniPick.builtin.files()<cr>', { desc = 'Files' })
+map('n', '<leader>sG', '<cmd>lua MiniPick.builtin.grep()<cr>', { desc = 'Grep' })
+map('n', '<leader>ph', '<cmd>lua MiniPick.builtin.help()<cr>', { desc = 'Help' })
+map('n', '<leader>s/', "<cmd>lua MiniExtra.pickers.history({ scope = '/' })<cr>", { desc = 'Search history' })
+map('n', '<leader>s:', "<cmd>lua MiniExtra.pickers.history({ scope = ':' })<cr>", { desc = 'Commands hitory' })
+map('n', '<leader>sd', '<cmd>lua MiniExtra.pickers.diagnostic()<cr>', { desc = 'Diagnostics' })
+map('n', '<leader>sk', '<cmd>lua MiniExtra.pickers.keymaps()<cr>', { desc = 'Keymaps' })
+map('n', '<leader>sl', "<cmd>lua MiniExtra.pickers.buf_lines({ scope = 'current' })<cr>", { desc = 'Lines' })
+map('n', '<leader>so', '<cmd>lua MiniExtra.pickers.options()<cr>', { desc = 'Options' })
+map('n', '<leader>sr', '<cmd>lua MiniExtra.pickers.registers()<cr>', { desc = 'Registers' })
+map('n', '<leader>st', '<cmd>lua MiniExtra.pickers.hipatterns()<cr>', { desc = 'Todos' })
+map('n', '<leader>sc', '<cmd>lua MiniExtra.pickers.hl_groups()<cr>', { desc = 'Colors' })
+
+-- AI
+map('i', '<C-y>', 'copilot#Accept("\\<CR>")', { desc = 'Accept Copilot suggestion', expr = true, replace_keycodes = false })
+map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanionActions' })
+
+-- Gardening
+map('n', '<leader>zg', '<cmd>ZkNotes<CR>', { desc = '[Z]ettelkasten search notes' })
+map('n', '<leader>zn', '<cmd>ZkNew<CR>', { desc = '[Z]ettelkasten new note' })
+map('n', '<leader>zl', '<cmd>ZkLinks<CR>', { desc = '[Z]ettelkasten show links' })
+map('n', '<leader>zb', '<cmd>ZkBacklinks<CR>', { desc = '[Z]ettelkasten show backlinks' })
+
+-- Git
+-- Here, we map it to `<leader>gl` (leader is typically the backslash key).
+map('n', '<leader>hl', '<cmd>GitLink<CR>', {
+  noremap = true,
+  silent = true,
+  desc = 'Open Git link for current line',
+})

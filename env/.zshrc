@@ -101,3 +101,22 @@ bindkey '^[[B' history-substring-search-down
 
 # Prompter
 eval "$(starship init zsh)"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Automatically load .env file on directory change
+load_dotenv() {
+  if [[ -f .env ]]; then
+    # `set -a` exports all subsequently defined variables
+    set -a
+    source .env
+    set +a
+  fi
+}
+
+# Add the function to the `chpwd` hook, which runs on `cd`
+if [[ -z "${chpwd_functions[(r)load_dotenv]}" ]]; then
+  chpwd_functions+=("load_dotenv")
+fi
+
+# Load .env for the initial shell session
+load_dotenv

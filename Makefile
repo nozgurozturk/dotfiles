@@ -158,6 +158,8 @@ link:
 	[ -L ~/.local/bin/tmuxs ] || ln -svf $(ENV_DIR)/.local/bin/tmuxs $(HOME)/.local/bin/tmuxs
 	# Link git config
 	[ -L ~/.gitconfig ] || ln -svf $(ENV_DIR)/.gitconfig $(HOME)
+	# Link rg config
+	[ -L ~/.ripgreprc ] || ln -svf $(ENV_DIR)/.ripgreprc $(HOME)
 
 .PHONY: unlink
 unlink:
@@ -172,6 +174,8 @@ unlink:
 	rm -rf ~/.local/bin/tmuxs
 	# Unlink git config
 	rm -rf ~/.gitconfig
+	# Unlink rg config
+	rm -rf ~/.ripgreprc
 
 define print-target
     @printf "Executing target: \033[36m$@\033[0m\n"

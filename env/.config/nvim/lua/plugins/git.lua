@@ -50,7 +50,7 @@ return {
           end, '[h]unk [r]eset')
           map('n', '<leader>hR', gitsigns.reset_buffer, '[h]unk [R]eset buffer')
 
-          map('n', '<leader>hu', gitsigns.undo_stage_hunk, '[h]unk [u]ndo stage')
+          map('n', '<leader>hu', gitsigns.stage_hunk, '[h]unk [u]ndo stage')
 
           map('n', '<leader>hp', gitsigns.preview_hunk, '[h]unk [p]review')
 
@@ -58,7 +58,7 @@ return {
           map('n', '<leader>hD', function()
             gitsigns.diffthis '~'
           end, '[h]unk [D]iff buffer')
-          map('n', '<leader>td', gitsigns.toggle_deleted, '[t]oggle [d]eleted')
+          map('n', '<leader>td', gitsigns.preview_hunk_inline, '[t]oggle [d]eleted')
         end,
       }
     end,

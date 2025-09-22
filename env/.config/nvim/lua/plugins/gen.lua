@@ -26,7 +26,6 @@ return {
       end
 
       map('i', '<C-\\>', toggle, { desc = 'Toggle Copilot' })
-      map('i', '<C-y>', 'copilot#Accept("\\<CR>")', { desc = 'Accept Copilot suggestion', expr = true, replace_keycodes = false })
     end,
   },
   {
@@ -37,15 +36,17 @@ return {
     },
     opts = {
       adapters = {
-        gemini = function()
-          return require('codecompanion.adapters').extend('gemini', {
-            schema = {
-              model = {
-                default = 'gemini-2.5-pro-preview-05-06',
+        http = {
+          gemini = function()
+            return require('codecompanion.adapters').extend('gemini', {
+              schema = {
+                model = {
+                  default = 'gemini-2.5-pro',
+                },
               },
-            },
-          })
-        end,
+            })
+          end,
+        },
       },
       prompt_library = {
         ['Fix grammer and typos'] = {
@@ -65,7 +66,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = 'gemini',
+          adapter = 'copilot',
         },
         inline = {
           adapter = 'copilot',
@@ -82,19 +83,5 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      local function map(mode, keys, func, opts)
-        mode = mode or 'n'
-
-        opts.desc = 'AI: ' .. opts.desc
-        opts.noremap = true
-        opts.silent = true
-
-        vim.keymap.set(mode, keys, func, opts)
-      end
-      require('codecompanion').setup(opts)
-
-      map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanionActions' })
-    end,
   },
 }

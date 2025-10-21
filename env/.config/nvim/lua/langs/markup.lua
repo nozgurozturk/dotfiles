@@ -3,6 +3,7 @@ vim.lsp.enable {
   'marksman',
   'taplo',
   'yamlls',
+  'zk',
 }
 
 return {

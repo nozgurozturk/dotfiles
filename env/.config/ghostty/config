@@ -8,7 +8,7 @@ font-thicken = false
 font-size = 12
 
 # Appearance
-theme = dark:catppuccin-frappe,light:catppuccin-latte
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 adjust-cursor-thickness = 2
 adjust-underline-position = 2
 bold-is-bright = true

@@ -1,4 +1,4 @@
-vim.lsp.enable { 'ruff' }
+vim.lsp.enable { 'basedpyright', 'ruff' }
 
 return {
   -- treesitter
@@ -15,7 +15,7 @@ return {
     'mason-org/mason.nvim',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'ruff' })
+        vim.list_extend(opts.ensure_installed, { 'basedpyright', 'ruff' })
       end
     end,
   },

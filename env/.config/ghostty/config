@@ -20,4 +20,4 @@ macos-option-as-alt = true
 macos-auto-secure-input = true
 
 # Keybindings
-keybind = ctrl+P=toggle_quick_terminal
+keybind = ctrl+.=toggle_quick_terminal

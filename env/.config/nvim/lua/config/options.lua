@@ -90,14 +90,7 @@ vim.opt.spelllang = { 'en' }
 vim.opt.spell = true
 
 -- Styling
--- Get the system appearance and set background color
-local system_appearance = vim.fn.system 'defaults read -g AppleInterfaceStyle'
-if system_appearance == 'Dark\n' then
-  vim.opt.background = 'dark'
-else
-  vim.opt.background = 'light'
-end
-
+--
 -- folds
 vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -109,10 +102,9 @@ vim.g.have_nerd_font = true
 
 -- Diagnostic
 vim.diagnostic.config {
-  virtual_text = true,
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.ERROR] = '',
       [vim.diagnostic.severity.WARN] = '',
       [vim.diagnostic.severity.HINT] = '',
       [vim.diagnostic.severity.INFO] = '',
@@ -124,6 +116,8 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.WARN] = 'WarningMsg',
     },
   },
+  virtual_text = true,
+  virtual_lines = false,
   update_in_insert = true,
   underline = true,
   severity_sort = true,

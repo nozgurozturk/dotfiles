@@ -20,9 +20,6 @@ map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selected line up' })
 -- Clear search with <esc>
 map({ 'n' }, '<esc>', '<Cmd>nohlsearch<CR>', { desc = 'Escape and clear hlsearch' })
 
--- Minimap
-map('n', '<leader>m', '<cmd>lua MiniMap.toggle()<cr>', { desc = "Toggle 'minimap'" })
-
 -- better indenting
 map('v', '<', '<gv')
 map('v', '>', '>gv')
@@ -34,13 +31,12 @@ local diagnostic_goto = function(count, severity)
   end
 end
 
-map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-map('n', ']d', diagnostic_goto(1), { desc = 'Next Diagnostic' })
-map('n', '[d', diagnostic_goto(-1), { desc = 'Prev Diagnostic' })
-map('n', ']e', diagnostic_goto(1, 'ERROR'), { desc = 'Next Error' })
-map('n', '[e', diagnostic_goto(-1, 'ERROR'), { desc = 'Prev Error' })
-map('n', ']w', diagnostic_goto(1, 'WARN'), { desc = 'Next Warning' })
-map('n', '[w', diagnostic_goto(-1, 'WARN'), { desc = 'Prev Warning' })
+map('n', '<leader>d]', diagnostic_goto(1), { desc = 'Next Diagnostic' })
+map('n', '<leader>d[', diagnostic_goto(-1), { desc = 'Prev Diagnostic' })
+map('n', '<leader>e]', diagnostic_goto(1, 'ERROR'), { desc = 'Next Error' })
+map('n', '<leader>e[', diagnostic_goto(-1, 'ERROR'), { desc = 'Prev Error' })
+map('n', '<leader>w]', diagnostic_goto(1, 'WARN'), { desc = 'Next Warning' })
+map('n', '<leader>w[', diagnostic_goto(-1, 'WARN'), { desc = 'Prev Warning' })
 map('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 map('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -90,8 +86,7 @@ map('n', '<leader>st', '<cmd>lua MiniExtra.pickers.hipatterns()<cr>', { desc = '
 map('n', '<leader>sc', '<cmd>lua MiniExtra.pickers.hl_groups()<cr>', { desc = 'Colors' })
 
 -- AI
-map('i', '<C-y>', 'copilot#Accept("\\<CR>")', { desc = 'Accept Copilot suggestion', expr = true, replace_keycodes = false })
-map({ 'n', 'v' }, '<C-\\>', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanionActions' })
+map({ 'n', 'v' }, '<A-\\>', '<cmd>CodeCompanionActions<cr>', { desc = 'CodeCompanionActions' })
 
 -- Gardening
 map('n', '<leader>zg', '<cmd>ZkNotes<CR>', { desc = '[Z]ettelkasten search notes' })

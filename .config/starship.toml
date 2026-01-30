@@ -1,0 +1,73 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$lua\
+$nodejs\
+$golang\
+$aws\
+$terraform\
+$kubernetes\
+$jobs\
+$line_break\
+$character"""
+
+add_newline = true
+
+[directory]
+style = 'bold fg:blue'
+format = '[$path ]($style)'
+truncation_length = 2
+truncation_symbol = ' '
+truncate_to_repo = false
+
+[git_branch]
+style = 'bold fg:green'
+symbol = ' '
+format = '[$symbol$branch ]($style)'
+
+[fill]
+symbol = ' '
+
+[golang]
+style = 'fg:#01ADD8'
+symbol = 'go '
+format = '[$symbol($version )]($style) '
+
+[python]
+style = 'fg:teal'
+symbol = 'python '
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[lua]
+style = 'fg:blue'
+symbol = 'lua '
+format = '[$symbol($version )]($style) '
+
+[nodejs]
+style = 'fg:green'
+symbol = 'node '
+format = '[$symbol($version )]($style) '
+disabled = true
+
+[terraform]
+style = 'fg:#7B42BC'
+symbol = '\[tf\]'
+format = '[$symbol$workspace]($style) '
+
+[kubernetes]
+style = 'fg:#326CE5'
+symbol = '\[k8s\]'
+format = '[$symbol$context( \($namespace\))]($style) '
+disabled = false
+detect_files = ['values.yaml', 'values.*.yaml', 'Chart.yaml']
+
+[aws]
+style = 'yellow'
+symbol = '\[aws\]'
+format = '[$symbol($profile )(\[$duration\] )]($style) '

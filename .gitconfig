@@ -1,0 +1,86 @@
+[user]
+	name = Ozgur Ozturk
+	email = ozgur@nozgurozturk.com
+	signingkey = 36958C9540A5F506
+[gpg]
+	program = gpg2
+[github]
+	user = nozgurozturk
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[gitlab]
+ 	user = nozgurozturk
+[credential "https://gitlab.com"]
+	helper =
+	helper = osxkeychain
+[codeberg]
+	user = noo
+[credential "https://codeberg.org"]
+	helper =
+	helper = osxkeychain
+[url "git@codeberg.org:"]
+	insteadOf = https://coderberg.org/
+[core]
+	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	editor = nvim
+	quotepath = false
+	excludesfile = /Users/ozgurozturk/.gitignore
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true  # use n and N to move between diff sections
+[init]
+	defaultBranch = main
+[push]
+	default = current
+[pull]
+	rebase = false
+[mergetool]
+	keepBackup = true
+[merge "ours"]
+	conflictStyle = zdiff3
+    driver = true
+[commit]
+	template = ~/.git-commit-template
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+[alias]
+    sw = switch
+    swc = switch -c
+	st = status -sb
+	br = branch
+    co = checkout
+	lo = log --graph --decorate --pretty=oneline --abbrev-commit
+    brlist = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+    unstage = reset HEAD --
+	prev = checkout -
+	discard = checkout --
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

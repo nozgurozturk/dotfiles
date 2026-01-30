@@ -3,7 +3,7 @@
 # noo development environment setup
 #
 # Usage:
-#   curl -fsSL https://raw.codeberg.com/noo/dotfiles/install.sh | bash
+#   curl -fsSL https://codeberg.org/noo/dotfiles/raw/branch/main/install.sh | bash
 
 set -e
 

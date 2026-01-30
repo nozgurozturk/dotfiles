@@ -21,7 +21,7 @@ Personal macOS development environment setup.
 ### One-liner (latest release)
 
 ```sh
-curl -fsSL https://raw.codeberg.com/noo/dotfiles/install.sh | bash
+curl -fsSL https://codeberg.org/noo/dotfiles/raw/branch/main/install.sh | bash
 ```
 
 ### From source

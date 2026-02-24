@@ -4,7 +4,7 @@ Personal macOS development environment setup.
 
 ## What this does
 
-- Installs Homebrew (if missing)
+- Installs Zerobrew (if missing)
 - Installs packages and apps from `Brewfile`
 - Installs tmux TPM and a few zsh plugins
 - Symlinks dotfiles into place

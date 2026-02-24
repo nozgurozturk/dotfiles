@@ -162,26 +162,23 @@ get_version() {
     echo "$version"
 }
 
-install_homebrew() {
-	if command -v brew >/dev/null 2>&1; then
-		log_info "Homebrew already installed"
+install_zerobrew() {
+	if command -v zb >/dev/null 2>&1; then
+		log_info "Zerobrew already installed"
 		return 0
 	fi
 
-	log_info "Installing Homebrew..."
+	log_info "Installing Zerobrew..."
 	# Use non-interactive install script for macOS
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" </dev/null
+	/bin/bash -c "$(curl -fsSL https://zerobrew.rs/install)" </dev/null
 
-	# Ensure brew is on PATH for this script (Intel and Apple Silicon)
-	if [ -d "/opt/homebrew/bin" ]; then
-		eval "$(/opt/homebrew/bin/brew shellenv)" || true
-	# Fallback for Intel Macs
-	elif [ -d "/usr/local/bin" ]; then
-		eval "$(/usr/local/bin/brew shellenv)" || true
+	log_info "Verifying Zerobrew installation..."
+	if ! command -v zb >/dev/null 2>&1; then
+		log_error "Zerobrew installation failed"
+		return 1
 	fi
 
-	log_info "Disabling telemetry..."
-	brew analytics off
+	return 0
 }
 
 setup_macos_defaults() { 
@@ -579,7 +576,7 @@ install_brew_packages() {
 
 	# Install Homebrew packages from Brewfile if available
 	if [ -f "${DOTFILES_DIR}/Brewfile" ]; then
-		brew bundle --file="${DOTFILES_DIR}/Brewfile" || log_warn "Failed to install Brewfile packages"
+		zb bundle --file="${DOTFILES_DIR}/Brewfile" || log_warn "Failed to install Brewfile packages"
 	else
 		log_warn "No Brewfile found in dotfiles"
 	fi
@@ -711,7 +708,7 @@ setup() {
 
 	clone_git_repository
 
-	install_homebrew
+	install_zerobrew
 	install_brew_packages
 	install_tmux_plugin_manager
 	install_zsh_plugins

@@ -686,7 +686,7 @@ setup_symlinks() {
 }
 
 # Download and setup
-setup() {
+install() {
     version=""
     os=""
     arch=""
@@ -717,5 +717,4 @@ setup() {
 	setup_macos_defaults
 }
 
-# Main execution
-setup "$1"
+install "$1"

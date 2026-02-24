@@ -125,6 +125,28 @@ The installer links these into `$HOME`:
 - `.ripgreprc`
 - `.zshrc`
 
+### Manual Steps
+
+**GPG Key**
+
+Follow the instructions provided in [this link](https://docs.codeberg.org/security/gpg-key/), then execute the command below. This will create a macOS pinentry helper, allowing GPG to prompt for your passphrase in GUI applications and utilize the macOS Keychain for securely storing passphrases.
+
+```bash
+echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf
+killall gpg-agent
+```
+**SSH Key**
+
+Follow the instructions provided in [this link](https://docs.codeberg.org/security/ssh-key/)
+
+## Uninstall
+
+To uninstall and revert changes made by this dotfiles installer, run the included uninstall script:
+
+```bash
+./uninstall.sh
+```
+
 ## Notes
 
 - This setup is macOS-only.

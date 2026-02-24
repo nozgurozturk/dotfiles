@@ -4,6 +4,7 @@
 	signingkey = 36958C9540A5F506
 [gpg]
 	program = gpg2
+	format = openpgp
 [github]
 	user = nozgurozturk
 [url "git@github.com:"]
@@ -46,6 +47,9 @@
     driver = true
 [commit]
 	template = ~/.git-commit-template
+	gpgsign = true
+[tag]
+	gpgSign = true
 [color]
 	ui = auto
 [color "branch"]

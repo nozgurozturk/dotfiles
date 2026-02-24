@@ -15,6 +15,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export LANG=en_US.UTF-8
 
+export GPG_TTY=$(tty)
+
 export EDITOR=nvim
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

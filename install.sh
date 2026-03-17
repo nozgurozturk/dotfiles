@@ -635,30 +635,6 @@ setup_symlinks() {
 			ln -sf "$item" "$target" || log_warn "Failed to link local/$name"
 		done
 	)
-	# Symlink .gitconfig
-	(
-		local src_gitconfig="${DOTFILES_DIR}/.gitconfig"
-		local dest_gitconfig="${HOME}/.gitconfig"
-
-		if [ -f "${src_gitconfig}" ]; then
-			ln -sf "${src_gitconfig}" "${dest_gitconfig}" || log_warn "Failed to link .gitconfig"
-		else
-			log_warn "No .gitconfig in dotfiles"
-		fi
-	)
-
-	# Symlink .gitignore
-	(
-		local src_gitignore="${DOTFILES_DIR}/.gitignore"
-		local dest_gitignore="${HOME}/.gitignore"
-
-		if [ -f "${src_gitignore}" ]; then
-			ln -sf "${src_gitignore}" "${dest_gitignore}" || log_warn "Failed to link .gitignore"
-		else
-			log_warn "No .gitignore in dotfiles"
-		fi
-	)
-
 
 	# Symlink .ripgreprc
 	(

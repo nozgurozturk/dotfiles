@@ -273,8 +273,6 @@ reset_symlinks() {
 		fi
 	)
 
-	remove_symlink_if_matches "${HOME}/.gitconfig" "${DOTFILES_DIR}/.gitconfig"
-	remove_symlink_if_matches "${HOME}/.gitignore" "${DOTFILES_DIR}/.gitignore"
 	remove_symlink_if_matches "${HOME}/.ripgreprc" "${DOTFILES_DIR}/.ripgreprc"
 	remove_symlink_if_matches "${HOME}/.zshrc" "${DOTFILES_DIR}/.zshrc"
 }

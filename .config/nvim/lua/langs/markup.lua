@@ -41,9 +41,11 @@ return {
         yamlfix = {
           command = 'yamlfix',
           env = {
+            YAMLFIX_SEQUENCE_STYLE = 'block_style',
             YAMLFIX_EXPLICIT_START = false,
             YAMLFIX_SECTION_WHITELINES = '1',
             YAMLFIX_LINE_LENGTH = '160',
+            YAMLFIX_COMMENTS_REQUIRE_STARTING_SPACE = false,
           },
         },
       },

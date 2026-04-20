@@ -10,110 +10,57 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
-      {
-        'Davidyz/VectorCode',
-        version = '*',
-        build = 'uv tool upgrade vectorcode',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-      },
     },
     opts = {
-      display = {
-        action_palette = {
-          width = 95,
-          height = 10,
-          prompt = 'Prompt ', -- Prompt used for interactive LLM calls
-          provider = 'mini_pick', -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
-          opts = {
-            show_default_actions = true, -- Show the default actions in the action palette?
-            show_default_prompt_library = true, -- Show the default prompt library in the action palette?
-            title = 'CodeCompanion actions', -- The title of the action palette
-          },
-        },
-      },
-      memory = {
-        opts = {
-          chat = {
-            ---Function to determine if memory should be added to a chat buffer
-            ---This requires `enabled` to be true
-            ---@param chat CodeCompanion.Chat
-            ---@return boolean
-            condition = function(chat)
-              return chat.adapter.type ~= 'acp'
-            end,
-          },
-        },
-      },
       adapters = {
         acp = {
-          codex = function()
-            return require('codecompanion.adapters').extend('codex', {
+          gemini_cli = function()
+            return require('codecompanion.adapters').extend('gemini_cli', {
               defaults = {
-                auth_method = 'chatgpt', -- "openai-api-key"|"codex-api-key"|"chatgpt"
+                auth_method = 'gemini-api-key', -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+              },
+              schema = {
+                model = 'gemini-3.1-pro-preview',
+              },
+              env = {
+                GEMINI_API_KEY = os.getenv 'GEMINI_API_KEY',
+              },
+            })
+          end,
+          claude_code = function()
+            return require('codecompanion.adapters').extend('claude_code', {
+              env = {
+                CLAUDE_CODE_OAUTH_TOKEN = os.getenv 'CLAUDE_CODE_OAUTH_TOKEN',
               },
               commands = {
                 default = {
                   'pnpx',
                   '--silent',
-                  '@zed-industries/codex-acp',
+                  '@zed-industries/claude-agent-acp',
                 },
               },
             })
           end,
         },
         http = {
-          gemini = function()
-            return require('codecompanion.adapters').extend('gemini', {
+          anthropic = function()
+            return require('codecompanion.adapters').extend('anthropic', {
               schema = {
                 model = {
-                  default = 'gemini-2.5-pro',
+                  default = 'claude-sonnet-4-6',
                 },
               },
             })
           end,
-        },
-      },
-      ---@module "vectorcode"
-      extensions = {
-        vectorcode = {
-          ---@type VectorCode.CodeCompanion.ExtensionOpts
-          opts = {
-            tool_group = {
-              -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
-              enabled = true,
-              -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
-              -- if you use @vectorcode_vectorise, it'll be very handy to include
-              -- `file_search` here.
-              extras = {},
-              collapse = false, -- whether the individual tools should be shown in the chat
-            },
-            tool_opts = {
-              ---@type VectorCode.CodeCompanion.ToolOpts
-              ['*'] = {},
-              ---@type VectorCode.CodeCompanion.LsToolOpts
-              ls = {},
-              ---@type VectorCode.CodeCompanion.VectoriseToolOpts
-              vectorise = {},
-              ---@type VectorCode.CodeCompanion.QueryToolOpts
-              query = {
-                max_num = { chunk = -1, document = -1 },
-                default_num = { chunk = 50, document = 10 },
-                include_stderr = false,
-                use_lsp = false,
-                no_duplicate = true,
-                chunk_mode = false,
-                ---@type VectorCode.CodeCompanion.SummariseOpts
-                summarise = {
-                  ---@type boolean|(fun(chat: CodeCompanion.Chat, results: VectorCode.QueryResult[]):boolean)|nil
-                  enabled = false,
-                  adapter = nil,
-                  query_augmented = true,
+          gemini = function()
+            return require('codecompanion.adapters').extend('gemini', {
+              schema = {
+                model = {
+                  default = 'gemini-3-flash-preview',
                 },
               },
-              files_ls = {},
-              files_rm = {},
-            },
-          },
+            })
+          end,
         },
       },
       prompt_library = {
@@ -132,20 +79,28 @@ return {
           },
         },
       },
-      strategies = {
+      interactions = {
         chat = {
-          adapter = 'codex',
+          adapter = 'claude_code',
+          -- adapter = 'gemini_cli',
         },
         inline = {
-          adapter = 'openai',
+          adapter = 'anthropic',
+          -- adapter = 'gemini',
           keymaps = {
             accept_change = {
-              modes = { n = '<C-y>' },
+              callback = 'keymaps.accept_change',
               description = 'Accept the suggested change',
+              modes = { n = '<C-y>' },
+              index = 2,
+              opts = { nowait = true, noremap = true },
             },
             reject_change = {
-              modes = { n = '<C-c>' },
+              callback = 'keymaps.reject_change',
               description = 'Reject the suggested change',
+              modes = { n = '<C-c>' },
+              index = 3,
+              opts = { nowait = true, noremap = true },
             },
           },
         },
@@ -159,12 +114,14 @@ return {
         cmp = { enable_auto_complete = false },
         blink = { enable_auto_complete = false },
         lsp = {
-          enabled_ft = {},
-          disabled_ft = {},
-          enabled_auto_trigger_ft = {},
-          disabled_auto_trigger_ft = {},
-          warn_on_blink_or_cmp = true,
-          adjust_indentation = true,
+          completion = {
+            enabled_ft = {},
+            disabled_ft = {},
+            enabled_auto_trigger_ft = {},
+            disabled_auto_trigger_ft = {},
+            warn_on_blink_or_cmp = true,
+            adjust_indentation = true,
+          },
         },
         virtualtext = {
           auto_trigger_ft = {},
@@ -180,17 +137,25 @@ return {
           show_on_completion_menu = false,
         },
         notify = 'error',
-        provider = 'openai',
+        provider = 'claude',
         provider_options = {
-          openai = {
-            model = 'gpt-5-mini',
-            end_point = 'https://api.openai.com/v1/chat/completions',
-            stream = true,
-            api_key = 'OPENAI_API_KEY',
-            optional = {
-              max_completion_tokens = 256,
-              reasoning_effort = 'minimal',
-              n = 1,
+          provider_options = {
+            claude = {
+              max_tokens = 256,
+              model = 'claude-haiku-4.5',
+              system = 'see [Prompt] section for the default value',
+              few_shots = 'see [Prompt] section for the default value',
+              chat_input = 'See [Prompt Section for default value]',
+              stream = true,
+              api_key = 'ANTHROPIC_API_KEY',
+              end_point = 'https://api.anthropic.com/v1/messages',
+              optional = {
+                -- pass any additional parameters you want to send to claude request,
+                -- e.g.
+                -- stop_sequences = nil,
+              },
+              -- a list of functions to transform the endpoint, header, and request body
+              transform = {},
             },
           },
           gemini = {

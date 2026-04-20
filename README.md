@@ -44,7 +44,6 @@ Installed via `Brewfile`:
 
 ### Homebrew packages
 
-- asyncapi — AsyncAPI CLI
 - awscli — AWS CLI
 - btop — system monitor
 - buf — Protobuf tooling
@@ -64,6 +63,7 @@ Installed via `Brewfile`:
 - golang-migrate — DB migrations
 - goreleaser — release automation
 - graphviz — graph renderer
+- hcloud — Hetzner Cloud CLI
 - helm — Kubernetes package manager
 - jo — JSON generator
 - jq — JSON processor
@@ -71,15 +71,19 @@ Installed via `Brewfile`:
 - kubectl — Kubernetes CLI
 - kubectx — Kubernetes context switcher
 - kubeseal — Sealed Secrets
+- kubelogin — Kubernetes OpenID Connect (OIDC) authentication
 - luarocks — Lua packages
 - mole — dev tool
 - n — Node version manager
 - neovim — editor
 - ollama — local LLM runner
+- opentofu — open-source Terraform alternative
+- pinentry-mac — macOS pinentry for GPG
 - pnpm — Node package manager
 - protobuf — Protocol Buffers
 - python@3.14 — Python runtime
 - ripgrep — fast search
+- rtk — token-optimized CLI proxy
 - rustup — Rust toolchain
 - sqlc — SQL to code
 - starship — shell prompt
@@ -91,11 +95,10 @@ Installed via `Brewfile`:
 - vim — editor
 - websocat — WebSocket CLI
 - yq — YAML processor
-- zk — Zettelkasten tool
 
 ### Casks
 
-- codex — OpenAI Codex app
+- claude-code — Claude Code AI assistant
 - floorp — web browser
 - font-jetbrains-mono — font
 - font-jetbrains-mono-nerd-font — patched font

@@ -14,11 +14,11 @@ DEV_DIR="${HOME}/Development"
 CODERBERG_DIR="${DEV_DIR}/codeberg.org"
 DOTFILES_DIR="${CODERBERG_DIR}/${REPO}"
 
-COMPUTER_NAME="Ozgur’s MacBook Pro M2"
+COMPUTER_NAME="ozgur_macbook_pro"
 LANGUAGES=(en nl)
 LOCALE="en_US@currency=EUR"
 MEASUREMENT_UNITS="Centimeters"
-SCREENSHOTS_FOLDER="${HOME}/Screenshots"
+SCREENSHOTS_FOLDER="${HOME}/Pictures/Screenshots"
 
 # Color and formatting
 # Check if tput is available, stdout is a terminal, and tput can actually work with the current TERM
@@ -162,19 +162,28 @@ get_version() {
     echo "$version"
 }
 
-install_zerobrew() {
-	if command -v zb >/dev/null 2>&1; then
-		log_info "Zerobrew already installed"
+install_homebrew() {
+	if command -v brew >/dev/null 2>&1; then
+		log_info "Homebrew already installed"
 		return 0
 	fi
 
-	log_info "Installing Zerobrew..."
+	log_info "Installing Homebrew..."
 	# Use non-interactive install script for macOS
-	/bin/bash -c "$(curl -fsSL https://zerobrew.rs/install)" </dev/null
+	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" </dev/null
 
-	log_info "Verifying Zerobrew installation..."
-	if ! command -v zb >/dev/null 2>&1; then
-		log_error "Zerobrew installation failed"
+	# Ensure brew is available in the current session
+	if ! command -v brew >/dev/null 2>&1; then
+		if [ -x "/opt/homebrew/bin/brew" ]; then
+			eval "$(/opt/homebrew/bin/brew shellenv)"
+		elif [ -x "/usr/local/bin/brew" ]; then
+			eval "$(/usr/local/bin/brew shellenv)"
+		fi
+	fi
+
+	log_info "Verifying Homebrew installation..."
+	if ! command -v brew >/dev/null 2>&1; then
+		log_error "Homebrew installation failed"
 		return 1
 	fi
 
@@ -576,7 +585,7 @@ install_brew_packages() {
 
 	# Install Homebrew packages from Brewfile if available
 	if [ -f "${DOTFILES_DIR}/Brewfile" ]; then
-		zb bundle --file="${DOTFILES_DIR}/Brewfile" || log_warn "Failed to install Brewfile packages"
+		brew bundle --file="${DOTFILES_DIR}/Brewfile" || log_warn "Failed to install Brewfile packages"
 	else
 		log_warn "No Brewfile found in dotfiles"
 	fi
@@ -684,7 +693,7 @@ install() {
 
 	clone_git_repository
 
-	install_zerobrew
+	install_homebrew
 	install_brew_packages
 	install_tmux_plugin_manager
 	install_zsh_plugins

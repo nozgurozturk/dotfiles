@@ -48,23 +48,15 @@ log_error() {
     printf "%s[ERROR]%s %s\n" "${RED}" "${RESET}" "$1" >&2
 }
 
-uninstall_zerobrew() {
-	log_info "Uninstalling Zerobrew..."
+uninstall_homebrew() {
+	log_info "Uninstalling Homebrew..."
 
-	if command -v zb >/dev/null 2>&1; then
-		if zb self uninstall >/dev/null 2>&1; then
-			log_info "Removed Zerobrew via zb self uninstall"
-		else
-			log_warn "zb self uninstall failed, removing common Zerobrew paths"
-		fi
+	if command -v brew >/dev/null 2>&1; then
+		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)" -- --force </dev/null \
+			|| log_warn "Homebrew uninstaller failed"
 	else
-		log_warn "zb command not found, removing common Zerobrew paths"
+		log_warn "brew command not found, skipping Homebrew uninstall"
 	fi
-
-	rm -f "${HOME}/.local/bin/zb" || log_warn "Failed to remove ${HOME}/.local/bin/zb"
-	rm -rf "${HOME}/.zerobrew" || log_warn "Failed to remove ${HOME}/.zerobrew"
-	rm -rf "${HOME}/.cache/zerobrew" || log_warn "Failed to remove ${HOME}/.cache/zerobrew"
-	rm -rf "${HOME}/.local/share/zerobrew" || log_warn "Failed to remove ${HOME}/.local/share/zerobrew"
 }
 
 uninstall_tmux_plugin_manager() {
@@ -90,12 +82,37 @@ uninstall_zsh_plugins() {
 uninstall_brew_packages() {
 	log_info "Uninstalling Brewfile packages..."
 
-	if ! command -v zb >/dev/null 2>&1; then
-		log_warn "zb not found; skipping Brewfile package uninstall"
+	if ! command -v brew >/dev/null 2>&1; then
+		log_warn "brew not found; skipping Brewfile package uninstall"
 		return 0
 	fi
 
-	zb reset --yes
+	if [ ! -f "${DOTFILES_DIR}/Brewfile" ]; then
+		log_warn "No Brewfile found in dotfiles"
+		return 0
+	fi
+
+	# Parse Brewfile and uninstall each entry so we only remove what we installed
+	while IFS= read -r line; do
+		# Strip leading whitespace
+		line="${line#"${line%%[![:space:]]*}"}"
+		case "$line" in
+			brew\ *)
+				pkg=$(printf '%s\n' "$line" | sed -E 's/^brew[[:space:]]+"([^"]+)".*/\1/')
+				brew uninstall --ignore-dependencies --force "$pkg" >/dev/null 2>&1 \
+					|| log_warn "Failed to uninstall $pkg"
+				;;
+			cask\ *)
+				pkg=$(printf '%s\n' "$line" | sed -E 's/^cask[[:space:]]+"([^"]+)".*/\1/')
+				brew uninstall --cask --force "$pkg" >/dev/null 2>&1 \
+					|| log_warn "Failed to uninstall cask $pkg"
+				;;
+			tap\ *)
+				pkg=$(printf '%s\n' "$line" | sed -E 's/^tap[[:space:]]+"([^"]+)".*/\1/')
+				brew untap "$pkg" >/dev/null 2>&1 || true
+				;;
+		esac
+	done < "${DOTFILES_DIR}/Brewfile"
 }
 
 reset_macos_defaults() {
@@ -288,7 +305,7 @@ uninstall() {
 	uninstall_zsh_plugins || log_warn "Failed to uninstall zsh plugins"
 	uninstall_tmux_plugin_manager || log_warn "Failed to uninstall tmux plugin manager"
 	uninstall_brew_packages || log_warn "Failed to uninstall brew packages"
-	uninstall_zerobrew || log_warn "Failed to uninstall zerobrew"
+	uninstall_homebrew || log_warn "Failed to uninstall homebrew"
 	
 	# Remove dotfiles repo if requested
 	if [ -d "${DOTFILES_DIR}" ]; then

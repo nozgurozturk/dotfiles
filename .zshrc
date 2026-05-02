@@ -59,7 +59,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # GO
 export GOPATH=$HOME/go
-export GOPRIVATE=github.com/VanMoof/*
+export GOPRIVATE=github.com/VanMoof/*,github.com/nozgurozturk/*,codeberg.org/noo/*
 export PATH="$HOME/go/bin:$PATH"
 
 # RUST

@@ -1,0 +1,143 @@
+{
+	"permissions": {
+		"allow": [
+			"Bash(bash -n install.sh)",
+			"Bash(bash -n uninstall.sh)",
+			"Bash(ls:*)",
+			"Bash(cat:*)",
+			"Bash(head:*)",
+			"Bash(tail:*)",
+			"Bash(wc:*)",
+			"Bash(find:*)",
+			"Bash(rg:*)",
+			"Bash(diff:*)",
+			"Bash(echo:*)",
+			"Bash(jq:*)",
+			"Bash(yq:*)",
+			"Bash(git status:*)",
+			"Bash(git log:*)",
+			"Bash(git diff:*)",
+			"Bash(git show:*)",
+			"Bash(git blame:*)",
+			"Bash(git shortlog:*)",
+			"Bash(git branch:*)",
+			"Bash(git tag:*)",
+			"Bash(git remote:*)",
+			"Bash(git ls-files:*)",
+			"Bash(git ls-tree:*)",
+			"Bash(git rev-parse:*)",
+			"Bash(git describe:*)",
+			"Bash(git cat-file:*)",
+			"Bash(git config:*)",
+			"Bash(git add:*)",
+			"Bash(git commit:*)",
+			"Bash(git push:*)",
+			"Bash(git pull:*)",
+			"Bash(git fetch:*)",
+			"Bash(git checkout:*)",
+			"Bash(git switch:*)",
+			"Bash(git restore:*)",
+			"Bash(git merge:*)",
+			"Bash(git stash:*)",
+			"Bash(git cherry-pick:*)",
+			"Bash(git worktree:*)",
+			"Bash(git submodule:*)",
+			"Bash(git clean:*)",
+			"Bash(git init:*)",
+			"Bash(git clone:*)",
+			"Bash(gh pr list:*)",
+			"Bash(gh pr view:*)",
+			"Bash(gh pr diff:*)",
+			"Bash(gh pr checks:*)",
+			"Bash(gh pr status:*)",
+			"Bash(gh pr create:*)",
+			"Bash(gh pr checkout:*)",
+			"Bash(gh pr merge:*)",
+			"Bash(gh pr ready:*)",
+			"Bash(gh pr review:*)",
+			"Bash(gh pr comment:*)",
+			"Bash(gh pr close:*)",
+			"Bash(gh pr reopen:*)",
+			"Bash(gh pr edit:*)",
+			"Bash(gh issue list:*)",
+			"Bash(gh issue view:*)",
+			"Bash(gh issue status:*)",
+			"Bash(gh issue create:*)",
+			"Bash(gh issue close:*)",
+			"Bash(gh issue reopen:*)",
+			"Bash(gh issue comment:*)",
+			"Bash(gh issue edit:*)",
+			"Bash(gh repo view:*)",
+			"Bash(gh repo list:*)",
+			"Bash(gh repo clone:*)",
+			"Bash(gh repo fork:*)",
+			"Bash(gh run list:*)",
+			"Bash(gh run view:*)",
+			"Bash(gh run watch:*)",
+			"Bash(gh run rerun:*)",
+			"Bash(gh workflow list:*)",
+			"Bash(gh workflow view:*)",
+			"Bash(gh workflow run:*)",
+			"Bash(gh release list:*)",
+			"Bash(gh release view:*)",
+			"Bash(gh release create:*)",
+			"Bash(gh gist list:*)",
+			"Bash(gh gist view:*)",
+			"Bash(gh gist create:*)",
+			"Bash(gh gist edit:*)",
+			"Bash(gh auth status:*)",
+			"Bash(gh search:*)",
+			"Bash(gh browse:*)",
+			"Bash(gh label:*)",
+			"WebFetch(domain:git-scm.com)",
+			"Bash(docker:*)",
+			"Bash(docker-compose:*)",
+			"mcp__plugin_context-mode_context-mode__fetch_and_index",
+			"mcp__plugin_context-mode_context-mode__search",
+			"mcp__plugin_context-mode_context-mode__execute"
+		],
+		"deny": [
+			"Read(./.env)",
+			"Read(./.env.*)",
+			"Read(./config)",
+			"Read(./.netrc)",
+			"Read(~/.netrc)",
+			"Read(./.git/config)",
+			"Read(~/.gitconfig)",
+			"Read(~/.git-credentials)",
+			"Read(./.git-credentials)",
+			"Read(~/.config/gh/**)",
+			"Read(./docker-compose.override.yml)",
+			"Read(./docker-compose.override.yaml)",
+			"Read(./**/docker-compose.override.yml)",
+			"Read(./**/docker-compose.override.yaml)",
+			"Read(~/.docker/config.json)"
+		]
+	},
+	"enableAllProjectMcpServers": true,
+	"hooks": {
+		"Stop": [
+			{
+				"matcher": "*",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/mempal_save_hook.sh",
+						"timeout": 30
+					}
+				]
+			}
+		],
+		"PreCompact": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/mempal_precompact_hook.sh",
+						"timeout": 30
+					}
+				]
+			}
+		]
+	}
+}

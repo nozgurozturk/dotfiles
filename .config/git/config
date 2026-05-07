@@ -1,9 +1,9 @@
 [user]
 	name = Ozgur Ozturk
 	email = ozgur@nozgurozturk.com
-	signingkey = 36958C9540A5F506
+	signingkey = 45016D2970FC192F
 [gpg]
-	program = gpg2
+	program = gpg
 	format = openpgp
 [github]
 	user = nozgurozturk

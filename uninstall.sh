@@ -292,6 +292,7 @@ reset_symlinks() {
 
 	remove_symlink_if_matches "${HOME}/.ripgreprc" "${DOTFILES_DIR}/.ripgreprc"
 	remove_symlink_if_matches "${HOME}/.zshrc" "${DOTFILES_DIR}/.zshrc"
+	remove_symlink_if_matches "${HOME}/.shh/config" "${DOTFILES_DIR}/.ssh/config"
 }
 
 uninstall() {

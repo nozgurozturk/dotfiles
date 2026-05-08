@@ -14,7 +14,7 @@ DEV_DIR="${HOME}/Development"
 CODERBERG_DIR="${DEV_DIR}/codeberg.org"
 DOTFILES_DIR="${CODERBERG_DIR}/${REPO}"
 
-COMPUTER_NAME="ozgur_macbook_pro"
+COMPUTER_NAME="macbook-pro-m2-2023"
 LANGUAGES=(en nl)
 LOCALE="en_US@currency=EUR"
 MEASUREMENT_UNITS="Centimeters"
@@ -668,6 +668,20 @@ setup_symlinks() {
 			log_warn "No .zshrc in dotfiles"
 		fi
 	)
+
+	# Symlink .ssh/config
+	(
+		local src_sshcfg="${DOTFILES_DIR}/.ssh/config"
+		local dest_sshcfg="${HOME}/.ssh/config"
+
+		if [ -f "${src_sshcfg}" ]; then
+			ln -sf "${src_sshcfg}" "${dest_sshcfg}" || log_warn "Failed to link .ssh/config"
+		else
+			log_warn "No .ssh/config in dotfiles"
+		fi
+	)
+
+
 }
 
 # Download and setup

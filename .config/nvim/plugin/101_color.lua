@@ -1,10 +1,5 @@
-vim.pack.add { 'https://github.com/oskarnurm/koda.nvim' }
+vim.pack.add { { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' } }
 
-require('koda').setup {
-  theme = {
-    dark = 'moss',
-    light = 'glade',
-  },
-}
+require('catppuccin').setup()
 
-vim.cmd 'colorscheme koda'
+vim.cmd.colorscheme 'catppuccin-nvim'

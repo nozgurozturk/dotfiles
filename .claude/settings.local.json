@@ -94,7 +94,8 @@
 			"Bash(docker-compose:*)",
 			"mcp__plugin_context-mode_context-mode__fetch_and_index",
 			"mcp__plugin_context-mode_context-mode__search",
-			"mcp__plugin_context-mode_context-mode__execute"
+			"mcp__plugin_context-mode_context-mode__execute",
+			"Bash(rtk git *)"
 		],
 		"deny": [
 			"Read(./.env)",

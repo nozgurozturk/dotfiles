@@ -4,7 +4,7 @@ Personal macOS development environment setup.
 
 ## What this does
 
-- Installs Zerobrew (if missing)
+- Installs Homebrew (if missing)
 - Installs packages and apps from `Brewfile`
 - Installs tmux TPM and a few zsh plugins
 - Symlinks dotfiles into place
@@ -49,14 +49,16 @@ Installed via `Brewfile`:
 - buf — Protobuf tooling
 - crush — SSH/terminal UI
 - curl — HTTP client
-- d2 — diagramming tool
 - deno — JS/TS runtime
+- dotnet — .NET SDK
 - fd — fast file finder
+- forgejo-cli — Forgejo CLI
 - fzf — fuzzy finder
 - gh — GitHub CLI
 - git — version control
-- git-delta — nicer diffs
 - git-crypt — repo encryption
+- git-delta — nicer diffs
+- git-lfs — Git Large File Storage
 - gnupg — OpenPGP tools
 - go — Go toolchain
 - golangci-lint — Go linter
@@ -85,12 +87,12 @@ Installed via `Brewfile`:
 - ripgrep — fast search
 - rtk — token-optimized CLI proxy
 - rustup — Rust toolchain
-- sqlc — SQL to code
+- sad — CLI search-and-replace
 - starship — shell prompt
 - terraform — IaC tool
-- tlrc — tldr client
 - tmux — terminal multiplexer
 - tree — directory tree
+- tree-sitter-cli — Tree-sitter parser CLI
 - uv — Python package manager
 - vim — editor
 - websocat — WebSocket CLI
@@ -119,14 +121,13 @@ Installed into `~/.zsh`:
 
 ## Symlinks
 
-The installer links these into `$HOME`:
+The installer links these into place:
 
-- `.config/*` → `${XDG_CONFIG_HOME:-$HOME/.config}`
-- `.local/*` → `$HOME/.local`
-- `.gitconfig`
-- `.gitignore`
-- `.ripgreprc`
-- `.zshrc`
+- `.config/*` → `${XDG_CONFIG_HOME:-$HOME/.config}/*` (btop, ghostty, git, k9s, nvim, starship, tmux)
+- `.local/bin/*` → `$HOME/.local/bin/*`
+- `.ripgreprc` → `$HOME/.ripgreprc`
+- `.zshrc` → `$HOME/.zshrc`
+- `.ssh/config` → `$HOME/.ssh/config`
 
 ### Manual Steps
 

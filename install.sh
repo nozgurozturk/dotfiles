@@ -627,21 +627,22 @@ setup_symlinks() {
 		done
 	)
 	
-	# Symlink .local
+	# Symlink .local/bin files
 	(
-		local src_local_dir="${DOTFILES_DIR}/.local"
-		local dest_local_dir="${HOME}/.local"
+		local src_bin_dir="${DOTFILES_DIR}/.local/bin"
+		local dest_bin_dir="${HOME}/.local/bin"
 
-		if [ ! -d "${src_local_dir}" ]; then
-			log_warn "No local directory in dotfiles"
+		if [ ! -d "${src_bin_dir}" ]; then
+			log_warn "No .local/bin directory in dotfiles"
 			return 0
 		fi
 
-		mkdir -p "${dest_local_dir}"
-		for item in "${src_local_dir}"/*; do
+		mkdir -p "${dest_bin_dir}"
+		for item in "${src_bin_dir}"/*; do
+			[ -e "$item" ] || continue
 			name=$(basename "$item")
-			target="${dest_local_dir}/$name"
-			ln -sf "$item" "$target" || log_warn "Failed to link local/$name"
+			target="${dest_bin_dir}/$name"
+			ln -sf "$item" "$target" || log_warn "Failed to link bin/$name"
 		done
 	)
 

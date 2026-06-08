@@ -277,22 +277,23 @@ reset_symlinks() {
 		fi
 	)
 
-	# .local symlinks
+	# .local/bin symlinks
 	(
-		local src_local_dir="${DOTFILES_DIR}/.local"
-		local dest_local_dir="${HOME}/.local"
+		local src_bin_dir="${DOTFILES_DIR}/.local/bin"
+		local dest_bin_dir="${HOME}/.local/bin"
 
-		if [ -d "${src_local_dir}" ]; then
-			for item in "${src_local_dir}"/*; do
+		if [ -d "${src_bin_dir}" ]; then
+			for item in "${src_bin_dir}"/*; do
+				[ -e "$item" ] || continue
 				name=$(basename "$item")
-				remove_symlink_if_matches "${dest_local_dir}/${name}" "${item}"
+				remove_symlink_if_matches "${dest_bin_dir}/${name}" "${item}"
 			done
 		fi
 	)
 
 	remove_symlink_if_matches "${HOME}/.ripgreprc" "${DOTFILES_DIR}/.ripgreprc"
 	remove_symlink_if_matches "${HOME}/.zshrc" "${DOTFILES_DIR}/.zshrc"
-	remove_symlink_if_matches "${HOME}/.shh/config" "${DOTFILES_DIR}/.ssh/config"
+	remove_symlink_if_matches "${HOME}/.ssh/config" "${DOTFILES_DIR}/.ssh/config"
 }
 
 uninstall() {

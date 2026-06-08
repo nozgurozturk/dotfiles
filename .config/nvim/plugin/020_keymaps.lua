@@ -56,6 +56,11 @@ local map_leader  = function(mode, suffix, rhs, desc)
   vim.keymap.set(mode, '<Leader>' .. suffix, rhs, { desc = desc })
 end
 
+-- d is for 'Diagnostic'
+map_leader('n', 'd',  '<cmd>lua vim.diagnostic.open_float() <cr>',  'Diagnostics line')
+map_leader('n', 'dA', '<cmd>Pick diagnostic scope="all"<cr>',       'Diagnostic workspace')
+map_leader('n', 'da', '<cmd>Pick diagnostic scope="current"<cr>',   'Diagnostic buffer')
+
 -- e is for 'Explore' and 'edit'
 map_leader('n', 'eq', '<cmd>Picker list scope="quickfix"<cr>',       'Quickfix')
 map_leader('n', 'el', '<cmd>Picker list scope="location-list"<cr>',  'Location')
@@ -64,15 +69,13 @@ map_leader('n', 'el', '<cmd>Picker list scope="location-list"<cr>',  'Location')
 map_leader('n', 'f/', '<cmd>Pick history scope="/"<cr>',                  '"/" history')
 map_leader('n', 'f:', '<cmd>Pick history scope=":"<cr>',                  '":" history')
 map_leader('n', 'fb', '<cmd>Pick buffers<cr>',                            'Buffers')
-map_leader('n', 'fd', '<cmd>Pick diagnostic scope="all"<cr>',             'Diagnostic workspace')
-map_leader('n', 'fD', '<cmd>Pick diagnostic scope="current"<cr>',         'Diagnostic buffer')
 map_leader('n', 'ff', '<cmd>Pick files<cr>',                              'Files')
 map_leader('n', 'fg', '<cmd>Pick grep_live<cr>',                          'Grep live')
 map_leader('n', 'fG', '<cmd>Pick grep pattern="<cword>"<cr>',             'Grep current word')
 map_leader('n', 'fh', '<cmd>Pick git_hunks scope="staged"<cr>',           'Added hunks (all)')
 map_leader('n', 'fH', '<cmd>Pick git_hunks path="%" scope="staged"<cr>',  'Added hunks (buf)')
-map_leader('n', 'fv', '<cmd>Pick visit_paths cwd=""<cr>',                 'Visit paths (all)')
-map_leader('n', 'fV', '<cmd>Pick visit_paths<cr>',                        'Visit paths (cwd)')
+map_leader('n', 'fV', '<cmd>Pick visit_paths cwd=""<cr>',                 'Visit paths (all)')
+map_leader('n', 'fv', '<cmd>Pick visit_paths<cr>',                        'Visit paths (cwd)')
 
 -- g is for 'Go to'
 map_leader('n', 'gd', '<cmd>Pick lsp scope="definition"<cr>',             'Definition')

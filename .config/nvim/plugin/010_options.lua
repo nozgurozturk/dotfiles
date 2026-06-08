@@ -97,7 +97,7 @@ vim.o.diffopt = 'internal,filler,closeoff,indent-heuristic,inline:char,context:1
 local diagnostic_opts = {
   -- Show signs on top of any other sign, but only for warnings and errors
   signs = {
-    priority = 9999, 
+    priority = 9999,
     severity = { min = 'WARN', max = 'ERROR' },
     text = {
       [vim.diagnostic.severity.ERROR] = '',

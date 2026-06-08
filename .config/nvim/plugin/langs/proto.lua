@@ -11,5 +11,5 @@ Config.add {
 }
 
 lazy.on_vim_enter(function()
-  vim.lsp.enable { 'buf' }
+  vim.lsp.enable { 'buf_ls' }
 end)

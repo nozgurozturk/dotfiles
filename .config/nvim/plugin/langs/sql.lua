@@ -2,7 +2,7 @@ local lazy = require 'lazyload'
 
 Config.add {
   treesitter = { ensure_installed = { 'sql' } },
-  mason = { ensure_installed = { 'postgrestools', 'sql-formatter' } },
+  mason = { ensure_installed = { 'postgres-language-server', 'sql-formatter' } },
   conform = {
     formatters_by_ft = {
       sql = { 'sql_formatter' },

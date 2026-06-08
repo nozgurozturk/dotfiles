@@ -1,8 +1,8 @@
 local lazy = require 'lazyload'
 
 Config.add {
-  treesitter = { ensure_installed = { 'javascript', 'typescript', 'tsx', 'jsdoc', 'json5', 'graphql' } },
-  mason = { ensure_installed = { 'biome', 'typescript-language-server', 'graphql-language-service-cli' } },
+  treesitter = { ensure_installed = { 'javascript', 'typescript', 'tsx', 'jsdoc', 'json5' } },
+  mason = { ensure_installed = { 'biome', 'typescript-language-server' } },
   conform = {
     formatters_by_ft = {
       javascript = { 'biome-check' },
@@ -17,5 +17,5 @@ Config.add {
 }
 
 lazy.on_vim_enter(function()
-  vim.lsp.enable { 'biome', 'ts_ls', 'graphql-lsp' }
+  vim.lsp.enable { 'biome', 'ts_ls' }
 end)

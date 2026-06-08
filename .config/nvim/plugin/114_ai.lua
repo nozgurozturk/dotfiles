@@ -17,13 +17,6 @@ require('lazyload').on_vim_enter(function()
             env = {
               CLAUDE_CODE_OAUTH_TOKEN = os.getenv 'CLAUDE_CODE_OAUTH_TOKEN',
             },
-            commands = {
-              default = {
-                'pnpx',
-                '--silent',
-                '@zed-industries/claude-agent-acp',
-              },
-            },
           })
         end,
       },
@@ -38,43 +31,43 @@ require('lazyload').on_vim_enter(function()
           })
         end,
       },
-      prompt_library = {
-        ['Fix grammer and typos'] = {
-          strategy = 'inline',
-          description = 'Fix grammar and typos in the selected text',
-          prompts = {
-            {
-              role = 'system',
-              content = '[[You are a helpful assistant that fixes grammar and typos, and then enhances the wording in English.]]',
-            },
-            {
-              role = 'user',
-              content = 'Fix grammer and typos, and then enhance the wording.',
-            },
+    },
+    prompt_library = {
+      ['Fix grammer and typos'] = {
+        strategy = 'inline',
+        description = 'Fix grammar and typos in the selected text',
+        prompts = {
+          {
+            role = 'system',
+            content = '[[You are a helpful assistant that fixes grammar and typos, and then enhances the wording in English.]]',
+          },
+          {
+            role = 'user',
+            content = 'Fix grammer and typos, and then enhance the wording.',
           },
         },
       },
-      interactions = {
-        chat = {
-          adapter = 'claude_code',
-        },
-        inline = {
-          adapter = 'anthropic',
-          keymaps = {
-            accept_change = {
-              callback = 'keymaps.accept_change',
-              description = 'Accept the suggested change',
-              modes = { n = '<C-y>' },
-              index = 2,
-              opts = { nowait = true, noremap = true },
-            },
-            reject_change = {
-              callback = 'keymaps.reject_change',
-              description = 'Reject the suggested change',
-              modes = { n = '<C-c>' },
-              index = 3,
-              opts = { nowait = true, noremap = true },
-            },
+    },
+    interactions = {
+      chat = {
+        adapter = 'claude_code',
+      },
+      inline = {
+        adapter = 'anthropic',
+        keymaps = {
+          accept_change = {
+            callback = 'keymaps.accept_change',
+            description = 'Accept the suggested change',
+            modes = { n = '<C-y>' },
+            index = 2,
+            opts = { nowait = true, noremap = true },
+          },
+          reject_change = {
+            callback = 'keymaps.reject_change',
+            description = 'Reject the suggested change',
+            modes = { n = '<C-c>' },
+            index = 3,
+            opts = { nowait = true, noremap = true },
           },
         },
       },

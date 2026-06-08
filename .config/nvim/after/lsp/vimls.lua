@@ -1,7 +1,17 @@
+---@brief
+---
+--- https://github.com/iamcco/vim-language-server
+---
+--- You can install vim-language-server via npm:
+--- ```sh
+--- npm install -g vim-language-server
+--- ```
+
 ---@type vim.lsp.Config
 return {
   cmd = { 'vim-language-server', '--stdio' },
   filetypes = { 'vim' },
+  root_markers = { '.git' },
   init_options = {
     isNeovim = true,
     iskeyword = '@,48-57,_,192-255,-#',
